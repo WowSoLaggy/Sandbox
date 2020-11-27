@@ -7,6 +7,12 @@
     <Filter Include="src\Application">
       <UniqueIdentifier>{358692ec-a02f-46c1-80d7-174f4d4e8325}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Game">
+      <UniqueIdentifier>{d21291c2-fbde-4c58-b57f-0cd499db8a83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Settings">
+      <UniqueIdentifier>{a1d32863-b9e5-460f-bbce-da7e10502058}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -21,6 +27,15 @@
     <ClCompile Include="App.cpp">
       <Filter>src\Application</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_input.cpp">
+      <Filter>src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsProvider.cpp">
+      <Filter>src\Settings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -31,6 +46,21 @@
     </ClInclude>
     <ClInclude Include="App.h">
       <Filter>src\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Fwd.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingsProvider.h">
+      <Filter>src\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="InternalSettings.h">
+      <Filter>src\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="ExternalSettings.h">
+      <Filter>src\Settings</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
