@@ -15,10 +15,10 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="IApplication.cpp">
+    <ClCompile Include="IApp.cpp">
       <Filter>src\Application</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
+    <ClCompile Include="App.cpp">
       <Filter>src\Application</Filter>
     </ClCompile>
   </ItemGroup>
@@ -26,10 +26,10 @@
     <ClInclude Include="stdafx.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="IApplication.h">
+    <ClInclude Include="IApp.h">
       <Filter>src\Application</Filter>
     </ClInclude>
-    <ClInclude Include="Application.h">
+    <ClInclude Include="App.h">
       <Filter>src\Application</Filter>
     </ClInclude>
   </ItemGroup>

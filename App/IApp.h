@@ -1,9 +1,9 @@
 #pragma once
 
-class IApplication
+class IApp
 {
 public:
-  static IApplication& get();
+  static IApp& get();
 
 public:
   virtual void run() = 0;

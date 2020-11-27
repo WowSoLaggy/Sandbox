@@ -1,11 +1,11 @@
 #include "stdafx.h"
 
-#include "IApplication.h"
+#include "IApp.h"
 
 
 int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-  auto& app = IApplication::get();
+  auto& app = IApp::get();
   app.run();
 
   return 0;
