@@ -1,36 +1,44 @@
 #include "stdafx.h"
 #include "Game.h"
 
-#include <LaggyDx/IResourceController.h>
+#include "GameEvents.h"
+#include "ResourceLoader.h"
 
 
-Game::Game(IApp& i_app, Dx::IResourceController& i_resourceController)
-  : d_app(i_app)
-  , d_resourceController(i_resourceController)
+Game::Game()
 {
+  d_gameStateController.connectTo(*this);
+  d_viewportController.connectTo(d_worldController);
+  d_viewController.connectTo(d_viewportController);
+
+  onStarted();
+  ResourceLoader::loadAsync();
 }
 
 
-void Game::update(double i_dt)
+void Game::update(const double i_dt)
 {
+  if (!d_isReady && ResourceLoader::isLoaded())
+    onReady();
+
+  d_worldController.updateWorld(i_dt);
+  d_viewController.update(i_dt);
 }
 
 void Game::render(Dx::IRenderer2d& i_renderer) const
 {
+  d_viewController.render(i_renderer);
 }
 
 
-bool Game::loadResources()
+void Game::onStarted()
 {
-  try
-  {
-    d_resourceController.loadResources();
-    std::this_thread::sleep_for(100ms);
-  }
-  catch (...)
-  {
-    return false;
-  }
+  d_isReady = false;
+  notify(GameStartedEvent());
+}
 
-  return true;
+void Game::onReady()
+{
+  d_isReady = true;
+  notify(GameReadyEvent());
 }

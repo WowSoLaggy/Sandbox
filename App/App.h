@@ -19,6 +19,8 @@ public:
 
   virtual void run() override;
 
+  virtual Dx::IResourceController& getResourceController() override;
+
 private:
   std::unique_ptr<Game> d_game;
 
@@ -30,6 +32,6 @@ private:
   std::unique_ptr<Dx::IRenderer2d> d_renderer2d;
 
   bool d_continueLoop = false;
-  bool getContinueLoop();
+  [[nodiscard]] bool getContinueLoop();
   void mainloop();
 };

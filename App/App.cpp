@@ -36,7 +36,7 @@ App::App()
   d_inputDevice = Dx::IInputDevice::create(d_window->getHWnd());
   CONTRACT_ENSURE(d_inputDevice);
 
-  d_game = std::make_unique<Game>(*this, *d_resourceController);
+  d_game = std::make_unique<Game>();
 
   Sdk::setCursorToCenter();
   d_window->show();
@@ -55,6 +55,13 @@ void App::run()
 
   while (getContinueLoop())
     mainloop();
+}
+
+
+Dx::IResourceController& App::getResourceController()
+{
+  CONTRACT_ASSERT(d_resourceController);
+  return *d_resourceController;
 }
 
 
