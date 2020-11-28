@@ -26,26 +26,23 @@ void GameLoadController::check()
 void GameLoadController::onGameStarted()
 {
   d_isStarted = true;
-  createLoadingScreen();
+  showLoadingScreen();
   ResourceLoader::loadAsync();
 }
 
 void GameLoadController::onGameReady()
 {
-  deleteLoadingScreen();
-  createMainMenu();
+  showMainMenu();
 }
 
 
-void GameLoadController::createLoadingScreen()
+void GameLoadController::showLoadingScreen()
 {
   GuiCreator::createLoadingScreen(d_game.getGuiController().getGuiCollection());
 }
 
-void GameLoadController::deleteLoadingScreen()
+void GameLoadController::showMainMenu()
 {
-}
-
-void GameLoadController::createMainMenu()
-{
+  GuiCreator::deleteLoadingScreen(d_game.getGuiController().getGuiCollection());
+  GuiCreator::createMainMenu(d_game.getGuiController().getGuiCollection());
 }

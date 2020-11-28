@@ -117,6 +117,12 @@
     <ClCompile Include="GameLoadController.cpp">
       <Filter>src\Game\GameLoadController</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>src\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonView.cpp">
+      <Filter>src\View</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -208,6 +214,12 @@
     </ClInclude>
     <ClInclude Include="PositionOrigin.h">
       <Filter>src\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>src\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonView.h">
+      <Filter>src\View</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

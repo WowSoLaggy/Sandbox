@@ -14,6 +14,7 @@ public:
 
   void addGui(std::shared_ptr<IGuiControl> i_gui);
   void removeGui(IGuiControl& i_gui);
+  void removeGuiByTag(const std::string& i_tag);
 
 private:
   std::vector<std::shared_ptr<IGuiControl>> d_guis;

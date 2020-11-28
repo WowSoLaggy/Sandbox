@@ -44,7 +44,7 @@ void PanelView::updateTextures()
     return;
 
   auto& rc = IApp::get().getResourceController();
-  d_sprite.setTexture(rc.getTextureResource(d_panel.getTextureName()));
+  d_sprite.setTexture(rc.getTextureResource(textureName));
 }
 
 void PanelView::updateSize()

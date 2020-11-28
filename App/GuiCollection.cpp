@@ -27,16 +27,31 @@ void GuiCollection::addGui(std::shared_ptr<IGuiControl> i_gui)
 void GuiCollection::removeGui(IGuiControl& i_gui)
 {
   const auto it = std::find_if(d_guis.cbegin(), d_guis.cend(),
-                               [&](const auto& i_viewPtr)
-  {
-    return i_viewPtr.get() == &i_gui;
-  });
+                               [&](const auto& i_guiPtr)
+                               {
+                                 return i_guiPtr.get() == &i_gui;
+                               });
 
   if (it != d_guis.cend())
   {
     onGuiRemoving(**it);
     d_guis.erase(it);
   }
+}
+
+void GuiCollection::removeGuiByTag(const std::string& i_tag)
+{
+  d_guis.erase(std::remove_if(d_guis.begin(), d_guis.end(),
+               [&](const auto& i_guiPtr)
+               {
+                 if (i_guiPtr->getTag() == i_tag)
+                 {
+                   onGuiRemoving(*i_guiPtr);
+                   return true;
+                 }
+                 return false;
+               }),
+               d_guis.end());
 }
 
 

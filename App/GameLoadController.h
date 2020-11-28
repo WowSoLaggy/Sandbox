@@ -19,7 +19,6 @@ private:
   void onGameStarted();
   void onGameReady();
 
-  void createLoadingScreen();
-  void deleteLoadingScreen();
-  void createMainMenu();
+  void showLoadingScreen();
+  void showMainMenu();
 };

@@ -10,6 +10,7 @@ class Object;
 class GuiCollection;
 class IGuiControl;
 class Panel;
+class Button;
 
 class ObjectView;
 class IGuiView;
