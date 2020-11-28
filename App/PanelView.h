@@ -17,6 +17,7 @@ public:
   virtual void render(Dx::IRenderer2d& i_renderer) const override;
 
   virtual void updateTextures() override;
+  virtual void updateSize() override;
 
 private:
   const Panel& d_panel;

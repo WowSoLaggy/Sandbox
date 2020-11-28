@@ -14,6 +14,9 @@ public:
 
   void updateGui(double i_dt);
 
+  GuiCollection& getGuiCollection();
+  const GuiCollection& getGuiCollection() const;
+
 private:
   GuiCollection d_guiCollection;
 };

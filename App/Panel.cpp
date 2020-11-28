@@ -4,7 +4,7 @@
 #include "GuiEvents.h"
 
 
-void Panel::setTextureName(std::string i_textureName)
+void Panel::setTextureName(const std::string i_textureName)
 {
   d_textureName = std::move(i_textureName);
   notify(GuiControlTextureChangedEvent(*this));
@@ -16,7 +16,7 @@ const std::string& Panel::getTextureName() const
 }
 
 
-void Panel::setPosition(Sdk::Vector2I i_position)
+void Panel::setPosition(const Sdk::Vector2I i_position)
 {
   d_position = std::move(i_position);
 }
@@ -24,4 +24,27 @@ void Panel::setPosition(Sdk::Vector2I i_position)
 const Sdk::Vector2I& Panel::getPosition() const
 {
   return d_position;
+}
+
+
+void Panel::setSize(const Sdk::Vector2I i_size)
+{
+  d_size = std::move(i_size);
+  notify(GuiControlSizeChangedEvent(*this));
+}
+
+const Sdk::Vector2I& Panel::getSize() const
+{
+  return d_size;
+}
+
+
+void Panel::setPositionOrigin(const PositionOrigin i_positionOrigin)
+{
+  d_positionOrigin = std::move(i_positionOrigin);
+}
+
+PositionOrigin Panel::getPositionOrigin() const
+{
+  return d_positionOrigin;
 }

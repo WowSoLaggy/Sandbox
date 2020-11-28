@@ -156,10 +156,11 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameStateController.cpp" />
+    <ClCompile Include="GameLoadController.cpp" />
     <ClCompile Include="Game_input.cpp" />
     <ClCompile Include="GuiCollection.cpp" />
     <ClCompile Include="GuiController.cpp" />
+    <ClCompile Include="GuiCreator.cpp" />
     <ClCompile Include="GuiViewFactory.cpp" />
     <ClCompile Include="IApp.cpp" />
     <ClCompile Include="main.cpp" />
@@ -186,9 +187,9 @@
     <ClInclude Include="ExternalSettings.h" />
     <ClInclude Include="Fwd.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameEvents.h" />
-    <ClInclude Include="GameStateController.h" />
+    <ClInclude Include="GameLoadController.h" />
     <ClInclude Include="GuiController.h" />
+    <ClInclude Include="GuiCreator.h" />
     <ClInclude Include="GuiEvents.h" />
     <ClInclude Include="GuiViewFactory.h" />
     <ClInclude Include="IApp.h" />
@@ -201,6 +202,7 @@
     <ClInclude Include="ObjectView.h" />
     <ClInclude Include="Panel.h" />
     <ClInclude Include="PanelView.h" />
+    <ClInclude Include="PositionOrigin.h" />
     <ClInclude Include="ResourceLoader.h" />
     <ClInclude Include="SettingsProvider.h" />
     <ClInclude Include="stdafx.h" />

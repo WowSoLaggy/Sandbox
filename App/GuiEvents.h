@@ -46,3 +46,12 @@ public:
   {
   }
 };
+
+class GuiControlSizeChangedEvent : public GuiControlEvent
+{
+public:
+  GuiControlSizeChangedEvent(const IGuiControl& i_gui)
+    : GuiControlEvent(i_gui)
+  {
+  }
+};

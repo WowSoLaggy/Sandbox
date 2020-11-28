@@ -28,12 +28,26 @@ void PanelView::update(const double i_dt)
 
 void PanelView::render(Dx::IRenderer2d& i_renderer) const
 {
+  const auto translation = d_panel.getPositionOrigin() == PositionOrigin::Center ?
+    -d_panel.getPosition() + d_sprite.getSize() / 2 :
+    -d_panel.getPosition();
+
+  i_renderer.setTranslation(translation);
   i_renderer.renderSprite(d_sprite);
 }
 
 
 void PanelView::updateTextures()
 {
+  const auto textureName = d_panel.getTextureName();
+  if (textureName.empty())
+    return;
+
   auto& rc = IApp::get().getResourceController();
   d_sprite.setTexture(rc.getTextureResource(d_panel.getTextureName()));
+}
+
+void PanelView::updateSize()
+{
+  d_sprite.setSize(d_panel.getSize());
 }

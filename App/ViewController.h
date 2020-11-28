@@ -24,4 +24,5 @@ private:
   void onGuiControlAdded(const IGuiControl& i_gui);
   void onGuiControlRemoving(const IGuiControl& i_gui);
   void onGuiControlTextureChanged(const IGuiControl& i_gui);
+  void onGuiControlSizeChanged(const IGuiControl& i_gui);
 };

@@ -7,6 +7,8 @@
 #include "ObjectView.h"
 #include "ViewportEvents.h"
 
+#include <LaggyDx/IRenderer2d.h>
+
 
 void ViewController::processEvent(const Sdk::IEvent& i_event)
 {
@@ -22,6 +24,8 @@ void ViewController::processEvent(const Sdk::IEvent& i_event)
     onGuiControlRemoving(event->getGuiControl());
   else if (const auto* event = dynamic_cast<const GuiControlTextureChangedEvent*>(&i_event))
     onGuiControlTextureChanged(event->getGuiControl());
+  else if (const auto* event = dynamic_cast<const GuiControlSizeChangedEvent*>(&i_event))
+    onGuiControlSizeChanged(event->getGuiControl());
 }
 
 
@@ -36,9 +40,16 @@ void ViewController::update(const double i_dt)
 void ViewController::render(Dx::IRenderer2d& i_renderer) const
 {
   for (const auto& view : d_objectViews)
+  {
+    i_renderer.resetTranslation();
     view->render(i_renderer);
+  }
+
   for (const auto& view : d_guiViews)
+  {
+    i_renderer.resetTranslation();
     view->render(i_renderer);
+  }
 }
 
 
@@ -99,6 +110,10 @@ void ViewController::onGuiControlTextureChanged(const IGuiControl& i_gui)
   const auto it = std::find_if(d_guiViews.cbegin(), d_guiViews.cend(),
                                [&](const auto& i_guiViewPtr)
   {
+    const auto& guiControl = i_guiViewPtr->getGuiControl();
+    const auto* ptr1 = &guiControl;
+    const auto* ptr2 = &i_gui;
+
     return &i_guiViewPtr->getGuiControl() == &i_gui;
   });
   if (it == d_guiViews.cend())
@@ -108,3 +123,20 @@ void ViewController::onGuiControlTextureChanged(const IGuiControl& i_gui)
   guiView.updateTextures();
 }
 
+void ViewController::onGuiControlSizeChanged(const IGuiControl& i_gui)
+{
+  const auto it = std::find_if(d_guiViews.cbegin(), d_guiViews.cend(),
+                               [&](const auto& i_guiViewPtr)
+  {
+    const auto& guiControl = i_guiViewPtr->getGuiControl();
+    const auto* ptr1 = &guiControl;
+    const auto* ptr2 = &i_gui;
+
+    return &i_guiViewPtr->getGuiControl() == &i_gui;
+  });
+  if (it == d_guiViews.cend())
+    return;
+
+  auto& guiView = **it;
+  guiView.updateSize();
+}

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Fwd.h"
-#include "GameStateController.h"
+#include "GameLoadController.h"
 #include "GuiController.h"
 #include "ViewController.h"
 #include "ViewportController.h"
@@ -22,14 +22,12 @@ public:
   void handleKeyboard(const Dx::KeyboardState& i_keyboardState);
   void handleMouse(const Dx::MouseState& i_mouseState);
 
+  GuiController& getGuiController() { return d_guiController; }
+
 private:
-  GameStateController d_gameStateController;
+  GameLoadController d_gameLoadController;
   ViewController d_viewController;
   WorldController d_worldController;
   ViewportController d_viewportController;
   GuiController d_guiController;
-
-  bool d_isReady = false;
-  void onStarted();
-  void onReady();
 };

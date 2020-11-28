@@ -20,3 +20,14 @@ void GuiController::processEvent(const Sdk::IEvent& i_event)
 void GuiController::updateGui(const double i_dt)
 {
 }
+
+
+GuiCollection& GuiController::getGuiCollection()
+{
+  return d_guiCollection;
+}
+
+const GuiCollection& GuiController::getGuiCollection() const
+{
+  return d_guiCollection;
+}
