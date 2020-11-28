@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include "WorldController.h"
 
+#include "Object.h"
 #include "ObjectEvents.h"
 #include "WorldCreator.h"
+#include "WorldEvents.h"
 
 #include <LaggySdk/Contracts.h>
 
@@ -11,6 +13,13 @@ WorldController::~WorldController()
 {
   if (worldCreated())
     disposeWorld();
+}
+
+
+void WorldController::processEvent(const Sdk::IEvent& i_event)
+{
+  if (dynamic_cast<const ObjectEvent*>(&i_event))
+    notify(i_event);
 }
 
 
@@ -37,30 +46,6 @@ bool WorldController::worldCreated() const
 }
 
 
-void WorldController::addObject(std::shared_ptr<Object> i_object)
-{
-  getWorld().getObjects().push_back(i_object);
-  onObjectAdded(*i_object);
-}
-
-void WorldController::removeObject(std::shared_ptr<Object> i_object)
-{
-  auto& objs = getWorld().getObjects();
-
-  const auto it = std::find_if(objs.cbegin(), objs.cend(),
-                               [&](const auto& i_objectPtr)
-  {
-    return i_objectPtr.get() == i_object.get();
-  });
-
-  if (it != objs.cend())
-  {
-    onObjectRemoving(**it);
-    objs.erase(it);
-  }
-}
-
-
 World& WorldController::getWorld()
 {
   CONTRACT_ASSERT(d_world);
@@ -70,24 +55,14 @@ World& WorldController::getWorld()
 
 void WorldController::onNewWorld()
 {
-  for (const auto& obj : getWorld().getObjects())
-    onObjectAdded(*obj);
+  connectTo(getWorld());
+  notify(WorldCreatedEvent(getWorld()));
 }
 
 void WorldController::onDiposingWorld()
 {
-  for (const auto& obj : getWorld().getObjects())
-    onObjectRemoving(*obj);
-}
-
-void WorldController::onObjectAdded(const Object& i_object)
-{
-  notify(ObjectAddedEvent(i_object));
-}
-
-void WorldController::onObjectRemoving(const Object& i_object)
-{
-  notify(ObjectRemovingEvent(i_object));
+  disconnectFrom(getWorld());
+  notify(WorldDisposingEvent(getWorld()));
 }
 
 

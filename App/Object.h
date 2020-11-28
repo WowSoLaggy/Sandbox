@@ -1,9 +1,10 @@
 #pragma once
 
 #include <LaggySdk/Vector.h>
+#include <LaggySdk/EventHandler.h>
 
 
-class Object
+class Object : public Sdk::EventHandler
 {
 public:
   void setTextureName(std::string i_textureName);
@@ -15,4 +16,7 @@ public:
 private:
   std::string d_textureName;
   Sdk::Vector2D d_position;
+
+  void onPositionChanged(Sdk::Vector2D i_prevPosition);
+  void onTextureChanged();
 };

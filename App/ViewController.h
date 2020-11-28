@@ -15,8 +15,13 @@ public:
   void render(Dx::IRenderer2d& i_renderer) const;
 
 private:
-  std::vector<std::shared_ptr<ObjectView>> d_views;
+  std::vector<std::shared_ptr<ObjectView>> d_objectViews;
+  std::vector<std::shared_ptr<IGuiView>> d_guiViews;
 
   void onObjectEntersViewport(const Object& i_object);
   void onObjectLeavesViewport(const Object& i_object);
+  void onObjectTextureChanged(const Object& i_object);
+  void onGuiControlAdded(const IGuiControl& i_gui);
+  void onGuiControlRemoving(const IGuiControl& i_gui);
+  void onGuiControlTextureChanged(const IGuiControl& i_gui);
 };

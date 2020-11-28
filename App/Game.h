@@ -2,6 +2,7 @@
 
 #include "Fwd.h"
 #include "GameStateController.h"
+#include "GuiController.h"
 #include "ViewController.h"
 #include "ViewportController.h"
 #include "WorldController.h"
@@ -14,7 +15,7 @@ class Game : public Sdk::EventHandler
 {
 public:
   Game();
-
+  
   void update(double i_dt);
   void render(Dx::IRenderer2d& i_renderer) const;
 
@@ -26,6 +27,7 @@ private:
   ViewController d_viewController;
   WorldController d_worldController;
   ViewportController d_viewportController;
+  GuiController d_guiController;
 
   bool d_isReady = false;
   void onStarted();

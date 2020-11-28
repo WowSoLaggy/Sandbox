@@ -15,7 +15,7 @@ std::unique_ptr<World> WorldCreator::createWorld()
     Object obj;
     obj.setTextureName(std::move(i_textureName));
     obj.setPosition(std::move(i_position));
-    world.getObjects().push_back(std::make_shared<Object>(std::move(obj)));
+    world.addObject(std::make_shared<Object>(std::move(obj)));
   };
 
   add("Man.png", { 0, 0 });

@@ -11,8 +11,7 @@
 ObjectView::ObjectView(const Object& i_object)
   : d_object(i_object)
 {
-  auto& rc = IApp::get().getResourceController();
-  d_sprite.setTexture(rc.getTextureResource(i_object.getTextureName()));
+  updateTextures();
 }
 
 
@@ -30,4 +29,11 @@ void ObjectView::update(const double i_dt)
 void ObjectView::render(Dx::IRenderer2d& i_renderer) const
 {
   i_renderer.renderSprite(d_sprite);
+}
+
+
+void ObjectView::updateTextures()
+{
+  auto& rc = IApp::get().getResourceController();
+  d_sprite.setTexture(rc.getTextureResource(d_object.getTextureName()));
 }

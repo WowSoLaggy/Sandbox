@@ -10,6 +10,7 @@ Game::Game()
   d_gameStateController.connectTo(*this);
   d_viewportController.connectTo(d_worldController);
   d_viewController.connectTo(d_viewportController);
+  d_viewController.connectTo(d_guiController);
 
   onStarted();
   ResourceLoader::loadAsync();

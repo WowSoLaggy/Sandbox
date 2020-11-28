@@ -10,12 +10,11 @@ class WorldController : public Sdk::EventHandler
 public:
   ~WorldController();
 
+  virtual void processEvent(const Sdk::IEvent& i_event) override;
+
   void createNewWorld();
   void disposeWorld();
   [[nodiscard]] bool worldCreated() const;
-
-  void addObject(std::shared_ptr<Object> i_object);
-  void removeObject(std::shared_ptr<Object> i_object);
 
   void updateWorld(double i_dt);
 
@@ -25,6 +24,4 @@ private:
 
   void onNewWorld();
   void onDiposingWorld();
-  void onObjectAdded(const Object& i_object);
-  void onObjectRemoving(const Object& i_object);
 };

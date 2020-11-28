@@ -37,6 +37,15 @@
     <Filter Include="src\Game\GameStateController">
       <UniqueIdentifier>{77e0b254-8cf0-4783-86cb-1c2a4639aca1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Gui">
+      <UniqueIdentifier>{ee3b9267-e2d8-446b-839c-240acffe2c55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Events">
+      <UniqueIdentifier>{d0fa4f22-1a65-4b3d-9213-453bd65cf5ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GuiViewFactory">
+      <UniqueIdentifier>{f0a9e334-28a4-462e-99f1-db52d3651bec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -87,6 +96,21 @@
     <ClCompile Include="GameStateController.cpp">
       <Filter>src\Game\GameStateController</Filter>
     </ClCompile>
+    <ClCompile Include="GuiCollection.cpp">
+      <Filter>src\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiController.cpp">
+      <Filter>src\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>src\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelView.cpp">
+      <Filter>src\View</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiViewFactory.cpp">
+      <Filter>src\GuiViewFactory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -131,12 +155,6 @@
     <ClInclude Include="WorldCreator.h">
       <Filter>src\WorldCreator</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectEvents.h">
-      <Filter>src\WorldController</Filter>
-    </ClInclude>
-    <ClInclude Include="ViewportEvents.h">
-      <Filter>src\ViewportController</Filter>
-    </ClInclude>
     <ClInclude Include="ViewportController.h">
       <Filter>src\ViewportController</Filter>
     </ClInclude>
@@ -148,6 +166,39 @@
     </ClInclude>
     <ClInclude Include="GameEvents.h">
       <Filter>src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="IGuiControl.h">
+      <Filter>src\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiCollection.h">
+      <Filter>src\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiController.h">
+      <Filter>src\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldEvents.h">
+      <Filter>src\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewportEvents.h">
+      <Filter>src\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectEvents.h">
+      <Filter>src\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiEvents.h">
+      <Filter>src\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>src\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelView.h">
+      <Filter>src\View</Filter>
+    </ClInclude>
+    <ClInclude Include="IGuiView.h">
+      <Filter>src\View</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiViewFactory.h">
+      <Filter>src\GuiViewFactory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
