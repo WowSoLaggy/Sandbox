@@ -21,4 +21,5 @@ private:
 
   void showLoadingScreen();
   void showMainMenu();
+  void showCursor();
 };

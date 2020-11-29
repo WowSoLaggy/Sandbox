@@ -57,6 +57,11 @@ void App::run()
     mainloop();
 }
 
+void App::stop()
+{
+  d_continueLoop = false;
+}
+
 
 Dx::IResourceController& App::getResourceController()
 {

@@ -15,6 +15,7 @@ public:
   void render(Dx::IRenderer2d& i_renderer) const;
 
 private:
+  std::shared_ptr<CursorView> d_cursorView;
   std::vector<std::shared_ptr<ObjectView>> d_objectViews;
   std::vector<std::shared_ptr<IGuiView>> d_guiViews;
 
@@ -25,4 +26,7 @@ private:
   void onGuiControlRemoving(const IGuiControl& i_gui);
   void onGuiControlTextureChanged(const IGuiControl& i_gui);
   void onGuiControlSizeChanged(const IGuiControl& i_gui);
+  void onCursorTextureChanged(const Cursor& i_cursor);
+  void onCursorShown(const Cursor& i_cursor);
+  void onCursorHidden();
 };

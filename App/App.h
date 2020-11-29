@@ -18,6 +18,7 @@ public:
   ~App();
 
   virtual void run() override;
+  virtual void stop() override;
 
   virtual Dx::IResourceController& getResourceController() override;
 

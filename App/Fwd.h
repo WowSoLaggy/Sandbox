@@ -12,6 +12,10 @@ class IGuiControl;
 class Panel;
 class Button;
 
+class CursorView;
 class ObjectView;
 class IGuiView;
 class PanelView;
+
+class Controller;
+class Cursor;

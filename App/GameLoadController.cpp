@@ -33,6 +33,7 @@ void GameLoadController::onGameStarted()
 void GameLoadController::onGameReady()
 {
   showMainMenu();
+  showCursor();
 }
 
 
@@ -45,4 +46,9 @@ void GameLoadController::showMainMenu()
 {
   GuiCreator::deleteLoadingScreen(d_game.getGuiController().getGuiCollection());
   GuiCreator::createMainMenu(d_game.getGuiController().getGuiCollection());
+}
+
+void GameLoadController::showCursor()
+{
+  d_game.getController().getCursor().show();
 }

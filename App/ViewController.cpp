@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "ViewController.h"
 
+#include "CursorEvents.h"
+#include "CursorView.h"
 #include "GuiEvents.h"
 #include "GuiViewFactory.h"
 #include "IGuiView.h"
@@ -26,6 +28,12 @@ void ViewController::processEvent(const Sdk::IEvent& i_event)
     onGuiControlTextureChanged(event->getGuiControl());
   else if (const auto* event = dynamic_cast<const GuiControlSizeChangedEvent*>(&i_event))
     onGuiControlSizeChanged(event->getGuiControl());
+  else if (const auto* event = dynamic_cast<const CursorTextureChangedEvent*>(&i_event))
+    onCursorTextureChanged(event->getCursor());
+  else if (const auto* event = dynamic_cast<const CursorShownEvent*>(&i_event))
+    onCursorShown(event->getCursor());
+  else if (dynamic_cast<const CursorHiddenEvent*>(&i_event))
+    onCursorHidden();
 }
 
 
@@ -35,6 +43,8 @@ void ViewController::update(const double i_dt)
     view->update(i_dt);
   for (auto& view : d_guiViews)
     view->update(i_dt);
+  if (d_cursorView)
+    d_cursorView->update(i_dt);
 }
 
 void ViewController::render(Dx::IRenderer2d& i_renderer) const
@@ -49,6 +59,12 @@ void ViewController::render(Dx::IRenderer2d& i_renderer) const
   {
     i_renderer.resetTranslation();
     view->render(i_renderer);
+  }
+
+  if (d_cursorView)
+  {
+    i_renderer.resetTranslation();
+    d_cursorView->render(i_renderer);
   }
 }
 
@@ -139,4 +155,20 @@ void ViewController::onGuiControlSizeChanged(const IGuiControl& i_gui)
 
   auto& guiView = **it;
   guiView.updateSize();
+}
+
+void ViewController::onCursorTextureChanged(const Cursor& i_cursor)
+{
+  if (d_cursorView)
+    d_cursorView->updateTextures();
+}
+
+void ViewController::onCursorShown(const Cursor& i_cursor)
+{
+  d_cursorView = std::make_shared<CursorView>(i_cursor);
+}
+
+void ViewController::onCursorHidden()
+{
+  d_cursorView.reset();
 }

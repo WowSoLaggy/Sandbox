@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Controller.h"
 #include "Fwd.h"
 #include "GameLoadController.h"
 #include "GuiController.h"
@@ -22,7 +23,8 @@ public:
   void handleKeyboard(const Dx::KeyboardState& i_keyboardState);
   void handleMouse(const Dx::MouseState& i_mouseState);
 
-  GuiController& getGuiController() { return d_guiController; }
+  GuiController& getGuiController();
+  Controller& getController();
 
 private:
   GameLoadController d_gameLoadController;
@@ -30,4 +32,5 @@ private:
   WorldController d_worldController;
   ViewportController d_viewportController;
   GuiController d_guiController;
+  Controller d_controller;
 };

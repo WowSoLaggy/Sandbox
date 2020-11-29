@@ -49,6 +49,15 @@
     <Filter Include="src\Utils">
       <UniqueIdentifier>{a6162061-7d37-4680-b004-9df3377a2e63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Controller">
+      <UniqueIdentifier>{d7e0a9fe-7ea5-49b2-8cf0-f49813219ef8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Controller\Actions">
+      <UniqueIdentifier>{2859b89f-48ae-4717-aaca-8d7f71857437}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Controller\Cursor">
+      <UniqueIdentifier>{edba48dd-1db8-4ea3-b56c-4c869336e9c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -64,9 +73,6 @@
       <Filter>src\Application</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>src\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game_input.cpp">
       <Filter>src\Game</Filter>
     </ClCompile>
     <ClCompile Include="SettingsProvider.cpp">
@@ -122,6 +128,24 @@
     </ClCompile>
     <ClCompile Include="ButtonView.cpp">
       <Filter>src\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>src\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseHandler.cpp">
+      <Filter>src\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionsMap.cpp">
+      <Filter>src\Controller\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Cursor.cpp">
+      <Filter>src\Controller\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="CursorView.cpp">
+      <Filter>src\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Cursors.cpp">
+      <Filter>src\Controller\Cursor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +244,30 @@
     </ClInclude>
     <ClInclude Include="ButtonView.h">
       <Filter>src\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>src\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseHandler.h">
+      <Filter>src\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions.h">
+      <Filter>src\Controller\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionsMap.h">
+      <Filter>src\Controller\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursor.h">
+      <Filter>src\Controller\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="CursorEvents.h">
+      <Filter>src\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="CursorView.h">
+      <Filter>src\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursors.h">
+      <Filter>src\Controller\Cursor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

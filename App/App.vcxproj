@@ -154,18 +154,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionsMap.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonView.cpp" />
+    <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Cursor.cpp" />
+    <ClCompile Include="Cursors.cpp" />
+    <ClCompile Include="CursorView.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameLoadController.cpp" />
-    <ClCompile Include="Game_input.cpp" />
     <ClCompile Include="GuiCollection.cpp" />
     <ClCompile Include="GuiController.cpp" />
     <ClCompile Include="GuiCreator.cpp" />
     <ClCompile Include="GuiViewFactory.cpp" />
     <ClCompile Include="IApp.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MouseHandler.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectView.cpp" />
     <ClCompile Include="Panel.cpp" />
@@ -185,9 +190,16 @@
     <ClCompile Include="WorldCreator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actions.h" />
+    <ClInclude Include="ActionsMap.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonView.h" />
+    <ClInclude Include="Controller.h" />
+    <ClInclude Include="Cursor.h" />
+    <ClInclude Include="CursorEvents.h" />
+    <ClInclude Include="Cursors.h" />
+    <ClInclude Include="CursorView.h" />
     <ClInclude Include="ExternalSettings.h" />
     <ClInclude Include="Fwd.h" />
     <ClInclude Include="Game.h" />
@@ -201,6 +213,7 @@
     <ClInclude Include="IGuiControl.h" />
     <ClInclude Include="IGuiView.h" />
     <ClInclude Include="InternalSettings.h" />
+    <ClInclude Include="MouseHandler.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectEvents.h" />
     <ClInclude Include="ObjectView.h" />
