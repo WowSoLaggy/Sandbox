@@ -4,6 +4,7 @@
 #include "CursorEvents.h"
 #include "Cursors.h"
 #include "IApp.h"
+#include "MouseEvents.h"
 
 #include <LaggyDx/KeyboardState.h>
 #include <LaggyDx/MouseState.h>
@@ -53,14 +54,17 @@ void Controller::handleMouse(const Dx::MouseState& i_mouseState)
 
 void Controller::onMouseClick(Dx::MouseKey i_button)
 {
+  notify(MouseClickEvent(i_button, d_cursor.getPosition()));
 }
 
 void Controller::onMouseRelease(Dx::MouseKey i_button)
 {
+  notify(MouseReleasedEvent(i_button, d_cursor.getPosition()));
 }
 
 void Controller::onMouseMove()
 {
+  notify(MouseMovedEvent(d_cursor.getPosition()));
 }
 
 void Controller::onMouseWheelChange(int i_wheelChange)

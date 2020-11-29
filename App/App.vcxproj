@@ -213,6 +213,7 @@
     <ClInclude Include="IGuiControl.h" />
     <ClInclude Include="IGuiView.h" />
     <ClInclude Include="InternalSettings.h" />
+    <ClInclude Include="MouseEvents.h" />
     <ClInclude Include="MouseHandler.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectEvents.h" />

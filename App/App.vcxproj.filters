@@ -263,5 +263,8 @@
     <ClInclude Include="Cursors.h">
       <Filter>src\Controller\Cursor</Filter>
     </ClInclude>
+    <ClInclude Include="MouseEvents.h">
+      <Filter>src\Events</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

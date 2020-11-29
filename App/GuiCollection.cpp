@@ -68,6 +68,23 @@ void GuiCollection::onGuiRemoving(IGuiControl& i_gui)
 }
 
 
+bool GuiCollection::onMouseClick(const Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos)
+{
+  for (auto& guiControlPtr : d_guis)
+  {
+    if (guiControlPtr->onMouseClick(i_button, i_mousePos))
+      return true;
+  }
+
+  return false;
+}
+
+void GuiCollection::onMouseRelease(const Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos)
+{
+  for (auto& guiControlPtr : d_guis)
+    guiControlPtr->onMouseRelease(i_button, i_mousePos);
+}
+
 void GuiCollection::onMouseMove(const Sdk::Vector2I& i_mousePos)
 {
   for (auto& guiControlPtr : d_guis)

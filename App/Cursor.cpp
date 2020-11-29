@@ -29,10 +29,7 @@ const std::string& Cursor::getTextureName() const
 
 void Cursor::setPosition(const Sdk::Vector2I i_position)
 {
-  const auto prevPosition = d_position;
   d_position = std::move(i_position);
-  if (d_position != prevPosition)
-    notify(CursorMovedEvent(*this));
 }
 
 const Sdk::Vector2I& Cursor::getPosition() const

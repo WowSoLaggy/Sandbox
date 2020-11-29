@@ -65,7 +65,7 @@ const std::string& Button::getText() const
 }
 
 
-bool Button::onMouseClick(Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos)
+bool Button::onMouseClick(const Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos)
 {
   const auto rect = Sdk::RectI(d_position, d_position + d_size);
 
@@ -78,7 +78,7 @@ bool Button::onMouseClick(Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos
   return false;
 }
 
-void Button::onMouseRelease(Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos)
+void Button::onMouseRelease(const Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos)
 {
   const auto rect = Sdk::RectI(d_position, d_position + d_size);
 

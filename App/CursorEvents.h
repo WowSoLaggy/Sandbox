@@ -55,12 +55,3 @@ public:
   {
   }
 };
-
-class CursorMovedEvent : public CursorEvent
-{
-public:
-  CursorMovedEvent(const Cursor& i_cursor)
-    : CursorEvent(i_cursor)
-  {
-  }
-};

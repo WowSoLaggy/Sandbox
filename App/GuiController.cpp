@@ -2,8 +2,8 @@
 #include "GuiController.h"
 
 #include "Cursor.h"
-#include "CursorEvents.h"
 #include "GuiEvents.h"
+#include "MouseEvents.h"
 
 
 GuiController::GuiController()
@@ -16,8 +16,12 @@ void GuiController::processEvent(const Sdk::IEvent& i_event)
 {
   if (dynamic_cast<const GuiControlEvent*>(&i_event))
     notify(i_event);
-  if (const auto* event = dynamic_cast<const CursorMovedEvent*>(&i_event))
-    onMouseMoved(event->getCursor());
+  else if (const auto* event = dynamic_cast<const MouseMovedEvent*>(&i_event))
+    onMouseMoved(event->getMousePos());
+  else if (const auto* event = dynamic_cast<const MouseClickEvent*>(&i_event))
+    onMouseClick(event->getMouseKey(), event->getMousePos());
+  else if (const auto* event = dynamic_cast<const MouseReleasedEvent*>(&i_event))
+    onMouseRelease(event->getMouseKey(), event->getMousePos());
 }
 
 
@@ -37,7 +41,17 @@ const GuiCollection& GuiController::getGuiCollection() const
 }
 
 
-void GuiController::onMouseMoved(const Cursor& i_cursor)
+bool GuiController::onMouseClick(const Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos)
 {
-  d_guiCollection.onMouseMove(i_cursor.getPosition());
+  return d_guiCollection.onMouseClick(i_button, i_mousePos);
+}
+
+void GuiController::onMouseRelease(const Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos)
+{
+  d_guiCollection.onMouseRelease(i_button, i_mousePos);
+}
+
+void GuiController::onMouseMoved(const Sdk::Vector2I& i_mousePos)
+{
+  d_guiCollection.onMouseMove(i_mousePos);
 }

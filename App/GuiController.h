@@ -2,6 +2,7 @@
 
 #include "GuiCollection.h"
 
+#include <LaggyDx/MouseKeys.h>
 #include <LaggySdk/EventHandler.h>
 
 
@@ -20,5 +21,7 @@ public:
 private:
   GuiCollection d_guiCollection;
 
-  void onMouseMoved(const Cursor& i_cursor);
+  bool onMouseClick(Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos);
+  void onMouseRelease(Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos);
+  void onMouseMoved(const Sdk::Vector2I& i_mousePos);
 };

@@ -2,6 +2,7 @@
 
 #include "Fwd.h"
 
+#include <LaggyDx/MouseKeys.h>
 #include <LaggySdk/EventHandler.h>
 #include <LaggySdk/Vector.h>
 
@@ -17,6 +18,8 @@ public:
   void removeGui(IGuiControl& i_gui);
   void removeGuiByTag(const std::string& i_tag);
 
+  bool onMouseClick(Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos);
+  void onMouseRelease(Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos);
   void onMouseMove(const Sdk::Vector2I& i_mousePos);
 
 private:
