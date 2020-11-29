@@ -60,3 +60,15 @@ Button::State Button::getState() const
 {
   return d_state;
 }
+
+
+void Button::setText(std::string i_text)
+{
+  d_text = std::move(i_text);
+  notify(GuiControlTextChangedEvent(*this));
+}
+
+const std::string& Button::getText() const
+{
+  return d_text;
+}

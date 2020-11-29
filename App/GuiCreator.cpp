@@ -95,5 +95,6 @@ void GuiCreator::createMainMenu(GuiCollection& io_guiCollection)
     auto& btn = createMainMenuButton();
     btn.setPosition(getClientCenter());
     btn.setPositionOrigin(PositionOrigin::Center);
+    btn.setText("New Game");
   }
 }

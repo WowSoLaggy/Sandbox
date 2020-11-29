@@ -32,13 +32,19 @@ public:
   void setState(State i_state);
   State getState() const;
 
+  void setText(std::string i_text);
+  const std::string& getText() const;
+
 private:
   std::unordered_map<State, std::string> d_textureNames = {
     { State::Normal, "" },
     { State::Light, ""},
     { State::Pressed, ""} };
+
   Sdk::Vector2I d_position;
   Sdk::Vector2I d_size;
   PositionOrigin d_positionOrigin = PositionOrigin::TopLeft;
   State d_state = State::Normal;
+
+  std::string d_text;
 };

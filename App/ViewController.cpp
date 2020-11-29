@@ -28,6 +28,8 @@ void ViewController::processEvent(const Sdk::IEvent& i_event)
     onGuiControlTextureChanged(event->getGuiControl());
   else if (const auto* event = dynamic_cast<const GuiControlSizeChangedEvent*>(&i_event))
     onGuiControlSizeChanged(event->getGuiControl());
+  else if (const auto* event = dynamic_cast<const GuiControlTextChangedEvent*>(&i_event))
+    onGuiControlTextChanged(event->getGuiControl());
   else if (const auto* event = dynamic_cast<const CursorTextureChangedEvent*>(&i_event))
     onCursorTextureChanged(event->getCursor());
   else if (const auto* event = dynamic_cast<const CursorShownEvent*>(&i_event))
@@ -78,12 +80,11 @@ void ViewController::onObjectEntersViewport(const Object& i_object)
 void ViewController::onObjectLeavesViewport(const Object& i_object)
 {
   const auto it = std::find_if(d_objectViews.cbegin(), d_objectViews.cend(),
-                               [&](const auto& i_objectViewPtr)
-  {
-    if (const auto* objectView = dynamic_cast<const ObjectView*>(i_objectViewPtr.get()))
-      return &objectView->getObject() == &i_object;
-    return false;
-  });
+                               [&](const auto& i_objectViewPtr) {
+                                 if (const auto* objectView = dynamic_cast<const ObjectView*>(i_objectViewPtr.get()))
+                                   return &objectView->getObject() == &i_object;
+                                 return false;
+                               });
 
   if (it != d_objectViews.cend())
     d_objectViews.erase(it);
@@ -92,10 +93,9 @@ void ViewController::onObjectLeavesViewport(const Object& i_object)
 void ViewController::onObjectTextureChanged(const Object& i_object)
 {
   const auto it = std::find_if(d_objectViews.cbegin(), d_objectViews.cend(),
-                               [&](const auto& i_objectViewPtr)
-  {
-    return &i_objectViewPtr->getObject() == &i_object;
-  });
+                               [&](const auto& i_objectViewPtr) {
+                                 return &i_objectViewPtr->getObject() == &i_object;
+                               });
   if (it == d_objectViews.cend())
     return;
 
@@ -112,10 +112,9 @@ void ViewController::onGuiControlAdded(const IGuiControl& i_gui)
 void ViewController::onGuiControlRemoving(const IGuiControl& i_gui)
 {
   const auto it = std::find_if(d_guiViews.cbegin(), d_guiViews.cend(),
-                               [&](const auto& i_guiViewPtr)
-  {
-    return &i_guiViewPtr->getGuiControl() == &i_gui;
-  });
+                               [&](const auto& i_guiViewPtr) {
+                                 return &i_guiViewPtr->getGuiControl() == &i_gui;
+                               });
 
   if (it != d_guiViews.cend())
     d_guiViews.erase(it);
@@ -124,14 +123,9 @@ void ViewController::onGuiControlRemoving(const IGuiControl& i_gui)
 void ViewController::onGuiControlTextureChanged(const IGuiControl& i_gui)
 {
   const auto it = std::find_if(d_guiViews.cbegin(), d_guiViews.cend(),
-                               [&](const auto& i_guiViewPtr)
-  {
-    const auto& guiControl = i_guiViewPtr->getGuiControl();
-    const auto* ptr1 = &guiControl;
-    const auto* ptr2 = &i_gui;
-
-    return &i_guiViewPtr->getGuiControl() == &i_gui;
-  });
+                               [&](const auto& i_guiViewPtr) {
+                                 return &i_guiViewPtr->getGuiControl() == &i_gui;
+                               });
   if (it == d_guiViews.cend())
     return;
 
@@ -142,19 +136,27 @@ void ViewController::onGuiControlTextureChanged(const IGuiControl& i_gui)
 void ViewController::onGuiControlSizeChanged(const IGuiControl& i_gui)
 {
   const auto it = std::find_if(d_guiViews.cbegin(), d_guiViews.cend(),
-                               [&](const auto& i_guiViewPtr)
-  {
-    const auto& guiControl = i_guiViewPtr->getGuiControl();
-    const auto* ptr1 = &guiControl;
-    const auto* ptr2 = &i_gui;
-
-    return &i_guiViewPtr->getGuiControl() == &i_gui;
-  });
+                               [&](const auto& i_guiViewPtr) {
+                                 return &i_guiViewPtr->getGuiControl() == &i_gui;
+                               });
   if (it == d_guiViews.cend())
     return;
 
   auto& guiView = **it;
   guiView.updateSize();
+}
+
+void ViewController::onGuiControlTextChanged(const IGuiControl& i_gui)
+{
+  const auto it = std::find_if(d_guiViews.cbegin(), d_guiViews.cend(),
+                               [&](const auto& i_guiViewPtr) {
+                                 return &i_guiViewPtr->getGuiControl() == &i_gui;
+                               });
+  if (it == d_guiViews.cend())
+    return;
+
+  auto& guiView = **it;
+  guiView.updateText();
 }
 
 void ViewController::onCursorTextureChanged(const Cursor& i_cursor)

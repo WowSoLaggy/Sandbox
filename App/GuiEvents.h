@@ -55,3 +55,12 @@ public:
   {
   }
 };
+
+class GuiControlTextChangedEvent : public GuiControlEvent
+{
+public:
+  GuiControlTextChangedEvent(const IGuiControl& i_gui)
+    : GuiControlEvent(i_gui)
+  {
+  }
+};

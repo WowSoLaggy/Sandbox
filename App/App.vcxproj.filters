@@ -13,20 +13,8 @@
     <Filter Include="src\Settings">
       <UniqueIdentifier>{a1d32863-b9e5-460f-bbce-da7e10502058}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Model">
-      <UniqueIdentifier>{dc516e63-6f29-493a-baab-c18641267c31}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\View">
       <UniqueIdentifier>{1b4a4755-ff54-442d-8c57-f72747ab4335}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\WorldController">
-      <UniqueIdentifier>{6e581280-a09f-4ad6-9ff7-40bdf8f9fce7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\ViewController">
-      <UniqueIdentifier>{6ebc1cd9-a41e-4a74-9e8f-30be8b30deab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\WorldCreator">
-      <UniqueIdentifier>{ae7be298-db70-4e16-b397-7d167c25934f}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\ViewportController">
       <UniqueIdentifier>{c86bfd83-3b57-44b7-abc0-419fe0029be3}</UniqueIdentifier>
@@ -39,9 +27,6 @@
     </Filter>
     <Filter Include="src\Events">
       <UniqueIdentifier>{d0fa4f22-1a65-4b3d-9213-453bd65cf5ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\GuiViewFactory">
-      <UniqueIdentifier>{f0a9e334-28a4-462e-99f1-db52d3651bec}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Game\GameLoadController">
       <UniqueIdentifier>{77e0b254-8cf0-4783-86cb-1c2a4639aca1}</UniqueIdentifier>
@@ -57,6 +42,21 @@
     </Filter>
     <Filter Include="src\Controller\Cursor">
       <UniqueIdentifier>{edba48dd-1db8-4ea3-b56c-4c869336e9c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\View\GuiViewFactory">
+      <UniqueIdentifier>{f0a9e334-28a4-462e-99f1-db52d3651bec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\World">
+      <UniqueIdentifier>{dc516e63-6f29-493a-baab-c18641267c31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\World\WorldCreator">
+      <UniqueIdentifier>{ae7be298-db70-4e16-b397-7d167c25934f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\World\WorldController">
+      <UniqueIdentifier>{6e581280-a09f-4ad6-9ff7-40bdf8f9fce7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\View\ViewController">
+      <UniqueIdentifier>{6ebc1cd9-a41e-4a74-9e8f-30be8b30deab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -79,22 +79,22 @@
       <Filter>src\Settings</Filter>
     </ClCompile>
     <ClCompile Include="World.cpp">
-      <Filter>src\Model</Filter>
+      <Filter>src\World</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>src\Model</Filter>
+      <Filter>src\World</Filter>
     </ClCompile>
     <ClCompile Include="ObjectView.cpp">
       <Filter>src\View</Filter>
     </ClCompile>
     <ClCompile Include="WorldController.cpp">
-      <Filter>src\WorldController</Filter>
+      <Filter>src\World\WorldController</Filter>
     </ClCompile>
     <ClCompile Include="ViewController.cpp">
-      <Filter>src\ViewController</Filter>
+      <Filter>src\View\ViewController</Filter>
     </ClCompile>
     <ClCompile Include="WorldCreator.cpp">
-      <Filter>src\WorldCreator</Filter>
+      <Filter>src\World\WorldCreator</Filter>
     </ClCompile>
     <ClCompile Include="ViewportController.cpp">
       <Filter>src\ViewportController</Filter>
@@ -115,7 +115,7 @@
       <Filter>src\View</Filter>
     </ClCompile>
     <ClCompile Include="GuiViewFactory.cpp">
-      <Filter>src\GuiViewFactory</Filter>
+      <Filter>src\View\GuiViewFactory</Filter>
     </ClCompile>
     <ClCompile Include="GuiCreator.cpp">
       <Filter>src\Gui</Filter>
@@ -174,22 +174,22 @@
       <Filter>src\Settings</Filter>
     </ClInclude>
     <ClInclude Include="World.h">
-      <Filter>src\Model</Filter>
+      <Filter>src\World</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>src\Model</Filter>
+      <Filter>src\World</Filter>
     </ClInclude>
     <ClInclude Include="ObjectView.h">
       <Filter>src\View</Filter>
     </ClInclude>
     <ClInclude Include="WorldController.h">
-      <Filter>src\WorldController</Filter>
+      <Filter>src\World\WorldController</Filter>
     </ClInclude>
     <ClInclude Include="ViewController.h">
-      <Filter>src\ViewController</Filter>
+      <Filter>src\View\ViewController</Filter>
     </ClInclude>
     <ClInclude Include="WorldCreator.h">
-      <Filter>src\WorldCreator</Filter>
+      <Filter>src\World\WorldCreator</Filter>
     </ClInclude>
     <ClInclude Include="ViewportController.h">
       <Filter>src\ViewportController</Filter>
@@ -228,7 +228,7 @@
       <Filter>src\View</Filter>
     </ClInclude>
     <ClInclude Include="GuiViewFactory.h">
-      <Filter>src\GuiViewFactory</Filter>
+      <Filter>src\View\GuiViewFactory</Filter>
     </ClInclude>
     <ClInclude Include="GuiCreator.h">
       <Filter>src\Gui</Filter>

@@ -18,8 +18,14 @@ public:
 
   virtual void updateTextures() override;
   virtual void updateSize() override;
+  virtual void updateText() override;
 
 private:
   const Button& d_button;
   Dx::AnimatedSprite d_sprite;
+  const Dx::IFontResource* d_font = nullptr;
+  Sdk::Vector2I d_textOffset;
+
+  void updateTextFont();
+  void resetTextFont();
 };

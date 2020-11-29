@@ -13,6 +13,7 @@ public:
   virtual void update(double i_dt) = 0;
   virtual void render(Dx::IRenderer2d& i_renderer) const = 0;
 
-  virtual void updateTextures() = 0;
-  virtual void updateSize() = 0;
+  virtual void updateTextures() {};
+  virtual void updateSize() {};
+  virtual void updateText() {};
 };
