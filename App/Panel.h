@@ -1,7 +1,6 @@
 #pragma once
 
 #include "IGuiControl.h"
-#include "PositionOrigin.h"
 
 #include <LaggySdk/Vector.h>
 
@@ -18,12 +17,8 @@ public:
   void setSize(Sdk::Vector2I i_size);
   const Sdk::Vector2I& getSize() const;
 
-  void setPositionOrigin(PositionOrigin i_positionOrigin);
-  PositionOrigin getPositionOrigin() const;
-
 private:
   std::string d_textureName;
   Sdk::Vector2I d_position;
   Sdk::Vector2I d_size;
-  PositionOrigin d_positionOrigin = PositionOrigin::TopLeft;
 };

@@ -27,7 +27,8 @@ private:
   void onGuiControlTextureChanged(const IGuiControl& i_gui);
   void onGuiControlSizeChanged(const IGuiControl& i_gui);
   void onGuiControlTextChanged(const IGuiControl& i_gui);
-  void onCursorTextureChanged(const Cursor& i_cursor);
+  void onCursorTextureChanged();
+  void onCursorSizeChanged();
   void onCursorShown(const Cursor& i_cursor);
   void onCursorHidden();
 };

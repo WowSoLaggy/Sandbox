@@ -29,6 +29,15 @@ public:
   }
 };
 
+class CursorSizeChangedEvent : public CursorEvent
+{
+public:
+  CursorSizeChangedEvent(const Cursor& i_cursor)
+    : CursorEvent(i_cursor)
+  {
+  }
+};
+
 class CursorShownEvent : public CursorEvent
 {
 public:
@@ -42,6 +51,15 @@ class CursorHiddenEvent : public CursorEvent
 {
 public:
   CursorHiddenEvent(const Cursor& i_cursor)
+    : CursorEvent(i_cursor)
+  {
+  }
+};
+
+class CursorMovedEvent : public CursorEvent
+{
+public:
+  CursorMovedEvent(const Cursor& i_cursor)
     : CursorEvent(i_cursor)
   {
   }

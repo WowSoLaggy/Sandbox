@@ -37,14 +37,3 @@ const Sdk::Vector2I& Panel::getSize() const
 {
   return d_size;
 }
-
-
-void Panel::setPositionOrigin(const PositionOrigin i_positionOrigin)
-{
-  d_positionOrigin = std::move(i_positionOrigin);
-}
-
-PositionOrigin Panel::getPositionOrigin() const
-{
-  return d_positionOrigin;
-}

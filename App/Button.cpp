@@ -3,6 +3,8 @@
 
 #include "GuiEvents.h"
 
+#include <LaggySdk/Rect.h>
+
 
 void Button::setTextureName(const State i_state, const std::string i_textureName)
 {
@@ -39,17 +41,6 @@ const Sdk::Vector2I& Button::getSize() const
 }
 
 
-void Button::setPositionOrigin(const PositionOrigin i_positionOrigin)
-{
-  d_positionOrigin = std::move(i_positionOrigin);
-}
-
-PositionOrigin Button::getPositionOrigin() const
-{
-  return d_positionOrigin;
-}
-
-
 void Button::setState(const State i_state)
 {
   d_state = i_state;
@@ -71,4 +62,44 @@ void Button::setText(std::string i_text)
 const std::string& Button::getText() const
 {
   return d_text;
+}
+
+
+bool Button::onMouseClick(Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos)
+{
+  const auto rect = Sdk::RectI(d_position, d_position + d_size);
+
+  if (i_button == Dx::MouseKey::Left && rect.containsPoint(i_mousePos))
+  {
+    setState(State::Pressed);
+    return true;
+  }
+
+  return false;
+}
+
+void Button::onMouseRelease(Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos)
+{
+  const auto rect = Sdk::RectI(d_position, d_position + d_size);
+
+  if (d_state == State::Pressed)
+  {
+    if (rect.containsPoint(i_mousePos))
+    {
+      setState(State::Light);
+      //press();
+    }
+    else
+      setState(State::Normal);
+  }
+}
+
+void Button::onMouseMove(const Sdk::Vector2I& i_mousePos)
+{
+  const auto rect = Sdk::RectI(d_position, d_position + d_size);
+
+  if (d_state == State::Normal && rect.containsPoint(i_mousePos))
+    setState(State::Light);
+  else if (d_state == State::Light && !rect.containsPoint(i_mousePos))
+    setState(State::Normal);
 }

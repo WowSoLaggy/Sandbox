@@ -9,6 +9,7 @@ Game::Game()
   d_viewController.connectTo(d_viewportController);
   d_viewController.connectTo(d_guiController);
   d_viewController.connectTo(d_controller);
+  d_guiController.connectTo(d_controller);
 }
 
 

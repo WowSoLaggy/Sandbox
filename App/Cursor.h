@@ -16,7 +16,11 @@ public:
   void setPosition(Sdk::Vector2I i_position);
   const Sdk::Vector2I& getPosition() const;
 
+  void setSize(Sdk::Vector2I i_size);
+  const Sdk::Vector2I& getSize() const;
+
 private:
   std::string d_textureName;
   Sdk::Vector2I d_position;
+  Sdk::Vector2I d_size;
 };

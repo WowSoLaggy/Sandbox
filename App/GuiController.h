@@ -19,4 +19,6 @@ public:
 
 private:
   GuiCollection d_guiCollection;
+
+  void onMouseMoved(const Cursor& i_cursor);
 };

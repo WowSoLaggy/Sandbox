@@ -31,9 +31,6 @@
     <Filter Include="src\Game\GameLoadController">
       <UniqueIdentifier>{77e0b254-8cf0-4783-86cb-1c2a4639aca1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Utils">
-      <UniqueIdentifier>{a6162061-7d37-4680-b004-9df3377a2e63}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Controller">
       <UniqueIdentifier>{d7e0a9fe-7ea5-49b2-8cf0-f49813219ef8}</UniqueIdentifier>
     </Filter>
@@ -235,9 +232,6 @@
     </ClInclude>
     <ClInclude Include="GameLoadController.h">
       <Filter>src\Game\GameLoadController</Filter>
-    </ClInclude>
-    <ClInclude Include="PositionOrigin.h">
-      <Filter>src\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>src\Gui</Filter>

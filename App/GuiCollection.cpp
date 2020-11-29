@@ -66,3 +66,10 @@ void GuiCollection::onGuiRemoving(IGuiControl& i_gui)
   disconnectFrom(i_gui);
   notify(GuiControlRemovingEvent(i_gui));
 }
+
+
+void GuiCollection::onMouseMove(const Sdk::Vector2I& i_mousePos)
+{
+  for (auto& guiControlPtr : d_guis)
+    guiControlPtr->onMouseMove(i_mousePos);
+}

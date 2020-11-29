@@ -31,7 +31,9 @@ void ViewController::processEvent(const Sdk::IEvent& i_event)
   else if (const auto* event = dynamic_cast<const GuiControlTextChangedEvent*>(&i_event))
     onGuiControlTextChanged(event->getGuiControl());
   else if (const auto* event = dynamic_cast<const CursorTextureChangedEvent*>(&i_event))
-    onCursorTextureChanged(event->getCursor());
+    onCursorTextureChanged();
+  else if (const auto* event = dynamic_cast<const CursorSizeChangedEvent*>(&i_event))
+    onCursorSizeChanged();
   else if (const auto* event = dynamic_cast<const CursorShownEvent*>(&i_event))
     onCursorShown(event->getCursor());
   else if (dynamic_cast<const CursorHiddenEvent*>(&i_event))
@@ -159,10 +161,16 @@ void ViewController::onGuiControlTextChanged(const IGuiControl& i_gui)
   guiView.updateText();
 }
 
-void ViewController::onCursorTextureChanged(const Cursor& i_cursor)
+void ViewController::onCursorTextureChanged()
 {
   if (d_cursorView)
     d_cursorView->updateTextures();
+}
+
+void ViewController::onCursorSizeChanged()
+{
+  if (d_cursorView)
+    d_cursorView->updateSize();
 }
 
 void ViewController::onCursorShown(const Cursor& i_cursor)

@@ -18,7 +18,7 @@ namespace
   {
     InternalSettings settings;
 
-    settings.applicationName = "Space Explorers";
+    settings.applicationName = "Sandbox";
     settings.assetsFolder = "Data/Assets";
     settings.configFolder = "Data/Configs";
     settings.savesFolder = "Saves";

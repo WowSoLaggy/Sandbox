@@ -1,9 +1,6 @@
 #pragma once
 
 #include "IGuiControl.h"
-#include "PositionOrigin.h"
-
-#include <LaggySdk/Vector.h>
 
 
 class Button : public IGuiControl
@@ -26,14 +23,15 @@ public:
   void setSize(Sdk::Vector2I i_size);
   const Sdk::Vector2I& getSize() const;
 
-  void setPositionOrigin(PositionOrigin i_positionOrigin);
-  PositionOrigin getPositionOrigin() const;
-
   void setState(State i_state);
   State getState() const;
 
   void setText(std::string i_text);
   const std::string& getText() const;
+
+  virtual bool onMouseClick(Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos) override;
+  virtual void onMouseRelease(Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos) override;
+  virtual void onMouseMove(const Sdk::Vector2I& i_mousePos) override;
 
 private:
   std::unordered_map<State, std::string> d_textureNames = {
@@ -43,7 +41,6 @@ private:
 
   Sdk::Vector2I d_position;
   Sdk::Vector2I d_size;
-  PositionOrigin d_positionOrigin = PositionOrigin::TopLeft;
   State d_state = State::Normal;
 
   std::string d_text;

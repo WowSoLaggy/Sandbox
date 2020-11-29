@@ -219,7 +219,6 @@
     <ClInclude Include="ObjectView.h" />
     <ClInclude Include="Panel.h" />
     <ClInclude Include="PanelView.h" />
-    <ClInclude Include="PositionOrigin.h" />
     <ClInclude Include="ResourceLoader.h" />
     <ClInclude Include="SettingsProvider.h" />
     <ClInclude Include="stdafx.h" />

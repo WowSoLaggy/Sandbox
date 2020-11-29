@@ -45,8 +45,8 @@ void GuiCreator::createLoadingScreen(GuiCollection& io_guiCollection)
     // "Loading" label
     auto& panel = createPanel();
     panel.setTextureName("Loading.png");
-    panel.setPosition(getClientCenter());
-    panel.setPositionOrigin(PositionOrigin::Center);
+    panel.setSize({ 256, 64 });
+    panel.setPosition(getClientCenter() - panel.getSize() / 2);
   }
 }
 
@@ -79,6 +79,7 @@ void GuiCreator::createMainMenu(GuiCollection& io_guiCollection)
     btn.setTextureName(Button::State::Normal, "Button.png");
     btn.setTextureName(Button::State::Light, "ButtonLight.png");
     btn.setTextureName(Button::State::Pressed, "ButtonPressed.png");
+    btn.setSize({ 256, 32 });
     return btn;
   };
 
@@ -93,8 +94,7 @@ void GuiCreator::createMainMenu(GuiCollection& io_guiCollection)
   {
     // New Game
     auto& btn = createMainMenuButton();
-    btn.setPosition(getClientCenter());
-    btn.setPositionOrigin(PositionOrigin::Center);
+    btn.setPosition(getClientCenter() - btn.getSize() / 2);
     btn.setText("New Game");
   }
 }

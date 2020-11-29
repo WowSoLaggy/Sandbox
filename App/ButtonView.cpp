@@ -31,11 +31,7 @@ void ButtonView::update(const double i_dt)
 
 void ButtonView::render(Dx::IRenderer2d& i_renderer) const
 {
-  const auto translation = d_button.getPositionOrigin() == PositionOrigin::Center ?
-    -d_button.getPosition() + d_sprite.getSize() / 2 :
-    -d_button.getPosition();
-
-  i_renderer.setTranslation(translation);
+  i_renderer.setTranslation(-d_button.getPosition());
   i_renderer.renderSprite(d_sprite);
 
   const auto text = d_button.getText();

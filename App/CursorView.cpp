@@ -12,6 +12,7 @@ CursorView::CursorView(const Cursor& i_cursor)
   : d_cursor(i_cursor)
 {
   updateTextures();
+  updateSize();
 }
 
 
@@ -37,4 +38,9 @@ void CursorView::updateTextures()
 {
   auto& rc = IApp::get().getResourceController();
   d_sprite.setTexture(rc.getTextureResource(d_cursor.getTextureName()));
+}
+
+void CursorView::updateSize()
+{
+  d_sprite.setSize(d_cursor.getSize());
 }
