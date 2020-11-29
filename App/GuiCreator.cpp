@@ -2,6 +2,7 @@
 #include "GuiCreator.h"
 
 #include "Button.h"
+#include "GameStateController.h"
 #include "GuiCollection.h"
 #include "Panel.h"
 #include "SettingsProvider.h"
@@ -9,6 +10,9 @@
 
 namespace
 {
+  const std::string TagLoading = "loading";
+  const std::string TagMainMenu = "main_menu";
+
   Sdk::Vector2I getClientSize()
   {
     const auto& settings = SettingsProvider::getDefaultExternalSettings();
@@ -24,13 +28,20 @@ namespace
 } // anon NS
 
 
-void GuiCreator::createLoadingScreen(GuiCollection& io_guiCollection)
+GuiCreator::GuiCreator(GameStateController& io_gameStateController, GuiCollection& io_guiCollection)
+  : d_gameStateController(io_gameStateController)
+  , d_guiCollection(io_guiCollection)
+{
+}
+
+
+void GuiCreator::createLoadingScreen()
 {
   auto createPanel = [&]() -> Panel&
   {
     auto panelPtr = std::make_shared<Panel>();
-    panelPtr->setTag("loading");
-    io_guiCollection.addGui(panelPtr);
+    panelPtr->setTag(TagLoading);
+    d_guiCollection.addGui(panelPtr);
     return *panelPtr;
   };
 
@@ -50,26 +61,26 @@ void GuiCreator::createLoadingScreen(GuiCollection& io_guiCollection)
   }
 }
 
-void GuiCreator::deleteLoadingScreen(GuiCollection& io_guiCollection)
+void GuiCreator::deleteLoadingScreen()
 {
-  io_guiCollection.removeGuiByTag("loading");
+  d_guiCollection.removeGuiByTag(TagLoading);
 }
 
-void GuiCreator::createMainMenu(GuiCollection& io_guiCollection)
+void GuiCreator::createMainMenu()
 {
   auto createPanel = [&]() -> Panel&
   {
     auto panelPtr = std::make_shared<Panel>();
-    panelPtr->setTag("main");
-    io_guiCollection.addGui(panelPtr);
+    panelPtr->setTag(TagMainMenu);
+    d_guiCollection.addGui(panelPtr);
     return *panelPtr;
   };
 
   auto createButton = [&]() -> Button&
   {
     auto buttonPtr = std::make_shared<Button>();
-    buttonPtr->setTag("main");
-    io_guiCollection.addGui(buttonPtr);
+    buttonPtr->setTag(TagMainMenu);
+    d_guiCollection.addGui(buttonPtr);
     return *buttonPtr;
   };
 
@@ -96,5 +107,19 @@ void GuiCreator::createMainMenu(GuiCollection& io_guiCollection)
     auto& btn = createMainMenuButton();
     btn.setPosition(getClientCenter() - btn.getSize() / 2);
     btn.setText("New Game");
+    btn.setHandler(std::bind(&GameStateController::onNewGame, &d_gameStateController));
   }
+
+  {
+    // New Game
+    auto& btn = createMainMenuButton();
+    btn.setPosition(getClientCenter() - btn.getSize() / 2 + Sdk::Vector2I{ 0, 48 });
+    btn.setText("Exit");
+    btn.setHandler(std::bind(&GameStateController::onExit, &d_gameStateController));
+  }
+}
+
+void GuiCreator::deleteMainMenu()
+{
+  d_guiCollection.removeGuiByTag(TagMainMenu);
 }

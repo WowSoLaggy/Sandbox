@@ -16,7 +16,7 @@ public:
   void disposeWorld();
   [[nodiscard]] bool worldCreated() const;
 
-  void updateWorld(double i_dt);
+  void update(double i_dt);
 
 private:
   std::unique_ptr<World> d_world;
@@ -24,4 +24,5 @@ private:
 
   void onNewWorld();
   void onDiposingWorld();
+  void onNewGame();
 };

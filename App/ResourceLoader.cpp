@@ -17,7 +17,7 @@ namespace
       rc.loadResources();
       std::this_thread::sleep_for(100ms);
     }
-    catch (...)
+    catch (std::exception exc)
     {
       return false;
     }

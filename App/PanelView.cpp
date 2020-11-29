@@ -12,6 +12,7 @@ PanelView::PanelView(const Panel& i_panel)
   : d_panel(i_panel)
 {
   updateTextures();
+  updateSize();
 }
 
 

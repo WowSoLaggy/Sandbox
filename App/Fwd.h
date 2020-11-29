@@ -3,6 +3,7 @@
 
 class IApp;
 class Game;
+class GameStateController;
 
 class World;
 class Object;

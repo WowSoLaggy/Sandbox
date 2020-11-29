@@ -12,7 +12,7 @@
 
 App::App()
 {
-  const auto hres = CoInitialize(nullptr);
+  const auto hres = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
   CONTRACT_ASSERT(hres == S_OK);
 
   Sdk::randomize();

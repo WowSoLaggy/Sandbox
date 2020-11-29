@@ -2,7 +2,7 @@
 
 #include "Controller.h"
 #include "Fwd.h"
-#include "GameLoadController.h"
+#include "GameStateController.h"
 #include "GuiController.h"
 #include "ViewController.h"
 #include "ViewportController.h"
@@ -27,7 +27,7 @@ public:
   Controller& getController();
 
 private:
-  GameLoadController d_gameLoadController;
+  GameStateController d_gameStateController;
   ViewController d_viewController;
   WorldController d_worldController;
   ViewportController d_viewportController;

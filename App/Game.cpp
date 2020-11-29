@@ -3,8 +3,9 @@
 
 
 Game::Game()
-  : d_gameLoadController(*this)
+  : d_gameStateController(*this)
 {
+  d_worldController.connectTo(d_gameStateController);
   d_viewportController.connectTo(d_worldController);
   d_viewController.connectTo(d_viewportController);
   d_viewController.connectTo(d_guiController);
@@ -15,9 +16,10 @@ Game::Game()
 
 void Game::update(const double i_dt)
 {
-  d_gameLoadController.check();
+  d_gameStateController.check();
 
-  d_worldController.updateWorld(i_dt);
+  d_worldController.update(i_dt);
+  d_guiController.update(i_dt);
   d_viewController.update(i_dt);
 }
 

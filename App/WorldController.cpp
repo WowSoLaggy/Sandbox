@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "WorldController.h"
 
+#include "GameEvents.h"
 #include "Object.h"
 #include "ObjectEvents.h"
 #include "WorldCreator.h"
@@ -20,6 +21,8 @@ void WorldController::processEvent(const Sdk::IEvent& i_event)
 {
   if (dynamic_cast<const ObjectEvent*>(&i_event))
     notify(i_event);
+  if (dynamic_cast<const NewGameEvent*>(&i_event))
+    onNewGame();
 }
 
 
@@ -65,7 +68,14 @@ void WorldController::onDiposingWorld()
   notify(WorldDisposingEvent(getWorld()));
 }
 
+void WorldController::onNewGame()
+{
+  if (worldCreated())
+    disposeWorld();
+  createNewWorld();
+}
 
-void WorldController::updateWorld(const double i_dt)
+
+void WorldController::update(const double i_dt)
 {
 }

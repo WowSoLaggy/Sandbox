@@ -163,7 +163,7 @@
     <ClCompile Include="Cursors.cpp" />
     <ClCompile Include="CursorView.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameLoadController.cpp" />
+    <ClCompile Include="GameStateController.cpp" />
     <ClCompile Include="GuiCollection.cpp" />
     <ClCompile Include="GuiController.cpp" />
     <ClCompile Include="GuiCreator.cpp" />
@@ -203,7 +203,8 @@
     <ClInclude Include="ExternalSettings.h" />
     <ClInclude Include="Fwd.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameLoadController.h" />
+    <ClInclude Include="GameEvents.h" />
+    <ClInclude Include="GameStateController.h" />
     <ClInclude Include="GuiController.h" />
     <ClInclude Include="GuiCreator.h" />
     <ClInclude Include="GuiEvents.h" />

@@ -3,6 +3,9 @@
 #include "IGuiControl.h"
 
 
+using ButtonHandler = std::function<void()>;
+
+
 class Button : public IGuiControl
 {
 public:
@@ -29,6 +32,8 @@ public:
   void setText(std::string i_text);
   const std::string& getText() const;
 
+  void setHandler(ButtonHandler i_handler);
+
   virtual bool onMouseClick(Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos) override;
   virtual void onMouseRelease(Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos) override;
   virtual void onMouseMove(const Sdk::Vector2I& i_mousePos) override;
@@ -44,4 +49,8 @@ private:
   State d_state = State::Normal;
 
   std::string d_text;
+
+  ButtonHandler d_handler = nullptr;
+
+  void press();
 };

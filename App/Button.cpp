@@ -65,6 +65,12 @@ const std::string& Button::getText() const
 }
 
 
+void Button::setHandler(ButtonHandler i_handler)
+{
+  d_handler = i_handler;
+}
+
+
 bool Button::onMouseClick(const Dx::MouseKey i_button, const Sdk::Vector2I& i_mousePos)
 {
   const auto rect = Sdk::RectI(d_position, d_position + d_size);
@@ -87,7 +93,7 @@ void Button::onMouseRelease(const Dx::MouseKey i_button, const Sdk::Vector2I& i_
     if (rect.containsPoint(i_mousePos))
     {
       setState(State::Light);
-      //press();
+      press();
     }
     else
       setState(State::Normal);
@@ -102,4 +108,11 @@ void Button::onMouseMove(const Sdk::Vector2I& i_mousePos)
     setState(State::Light);
   else if (d_state == State::Light && !rect.containsPoint(i_mousePos))
     setState(State::Normal);
+}
+
+
+void Button::press()
+{
+  if (d_handler)
+    d_handler();
 }

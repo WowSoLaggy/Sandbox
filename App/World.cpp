@@ -5,6 +5,12 @@
 #include "ObjectEvents.h"
 
 
+World::~World()
+{
+  removeAllObjects();
+}
+
+
 void World::processEvent(const Sdk::IEvent& i_event)
 {
   if (dynamic_cast<const ObjectEvent*>(&i_event))
@@ -37,6 +43,14 @@ void World::removeObject(Object& i_object)
     onObjectRemoving(**it);
     d_objects.erase(it);
   }
+}
+
+
+void World::removeAllObjects()
+{
+  for (auto& obj : d_objects)
+    onObjectRemoving(*obj);
+  d_objects.clear();
 }
 
 

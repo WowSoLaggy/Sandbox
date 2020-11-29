@@ -25,8 +25,9 @@ void GuiController::processEvent(const Sdk::IEvent& i_event)
 }
 
 
-void GuiController::updateGui(const double i_dt)
+void GuiController::update(const double i_dt)
 {
+  d_guiCollection.update(i_dt);
 }
 
 

@@ -6,7 +6,14 @@
 class GuiCreator
 {
 public:
-  static void createLoadingScreen(GuiCollection& io_guiCollection);
-  static void deleteLoadingScreen(GuiCollection& io_guiCollection);
-  static void createMainMenu(GuiCollection& io_guiCollection);
+  GuiCreator(GameStateController& io_gameStateController, GuiCollection& io_guiCollection);
+
+  void createLoadingScreen();
+  void deleteLoadingScreen();
+  void createMainMenu();
+  void deleteMainMenu();
+
+private:
+  GameStateController& d_gameStateController;
+  GuiCollection& d_guiCollection;
 };

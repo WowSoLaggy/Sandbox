@@ -15,6 +15,8 @@ ButtonView::ButtonView(const Button& i_button)
   : d_button(i_button)
 {
   updateTextures();
+  updateSize();
+  updateText();
 }
 
 
