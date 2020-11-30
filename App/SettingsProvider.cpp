@@ -4,12 +4,13 @@
 
 namespace
 {
-  ExternalSettings createDefaultExternalSettings()
+  UserSettings createDefaultUserSettings()
   {
-    ExternalSettings settings;
+    UserSettings settings;
 
     settings.clientWidth = 1600;
     settings.clientHeight = 900;
+    settings.cameraSpeed = 0.3;
 
     return settings;
   }
@@ -22,7 +23,6 @@ namespace
     settings.assetsFolder = "Data/Assets";
     settings.configFolder = "Data/Configs";
     settings.savesFolder = "Saves";
-    settings.tileSize = 64;
     settings.defaultFontName = "MyFont.spritefont";
 
     return settings;
@@ -31,10 +31,10 @@ namespace
 } // anonymous NS
 
 
-const ExternalSettings& SettingsProvider::getDefaultExternalSettings()
+const UserSettings& SettingsProvider::getDefaultUserSettings()
 {
-  static const auto externalSettings = createDefaultExternalSettings();
-  return externalSettings;
+  static const auto userSettings = createDefaultUserSettings();
+  return userSettings;
 }
 
 const InternalSettings& SettingsProvider::getDefaultInternalSettings()

@@ -34,15 +34,32 @@ void MouseHandler::handleMouse(const Dx::MouseState& i_mouseState)
   }
 
   if (int wheelChange = i_mouseState.getWheelPositionChange(); wheelChange != 0)
-    d_contoller.onMouseWheelChange(wheelChange > 0 ? +1 : -1);
+  {
+    const bool up = wheelChange > 0;
+    onMouseButton(up ? Dx::MouseKey::WheelUp : Dx::MouseKey::WheelDown);
+    d_contoller.onMouseWheelChange(up ? +1 : -1);
+  }
 
   if (i_mouseState.getLeftButtonState() == Dx::ButtonState::Pressed)
+  {
+    onMouseButton(Dx::MouseKey::Left);
     d_contoller.onMouseClick(Dx::MouseKey::Left);
+  }
   else if (i_mouseState.getLeftButtonState() == Dx::ButtonState::Released)
     d_contoller.onMouseRelease(Dx::MouseKey::Left);
 
   if (i_mouseState.getRightButtonState() == Dx::ButtonState::Pressed)
+  {
+    onMouseButton(Dx::MouseKey::Right);
     d_contoller.onMouseClick(Dx::MouseKey::Right);
+  }
   else if (i_mouseState.getRightButtonState() == Dx::ButtonState::Released)
     d_contoller.onMouseRelease(Dx::MouseKey::Right);
+}
+
+
+void MouseHandler::onMouseButton(Dx::MouseKey i_key)
+{
+  if (const auto actionOpt = d_contoller.getActionsMap().getAction(i_key))
+    d_contoller.runAction(*actionOpt);
 }

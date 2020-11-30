@@ -15,13 +15,13 @@ namespace
 
   Sdk::Vector2I getClientSize()
   {
-    const auto& settings = SettingsProvider::getDefaultExternalSettings();
+    const auto& settings = SettingsProvider::getDefaultUserSettings();
     return { settings.clientWidth, settings.clientHeight };
   }
 
   Sdk::Vector2I getClientCenter()
   {
-    const auto& settings = SettingsProvider::getDefaultExternalSettings();
+    const auto& settings = SettingsProvider::getDefaultUserSettings();
     return { settings.clientWidth / 2, settings.clientHeight / 2 };
   }
 

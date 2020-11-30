@@ -61,3 +61,12 @@ public:
   {
   }
 };
+
+class ObjectSizeChangedEvent : public ObjectEvent
+{
+public:
+  ObjectSizeChangedEvent(const Object& i_object)
+    : ObjectEvent(i_object)
+  {
+  }
+};

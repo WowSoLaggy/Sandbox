@@ -17,20 +17,19 @@ App::App()
 
   Sdk::randomize();
 
-  const auto& externalSettings = SettingsProvider::getDefaultExternalSettings();
+  const auto& userSettings = SettingsProvider::getDefaultUserSettings();
   const auto& internalSettings = SettingsProvider::getDefaultInternalSettings();
+  const Sdk::Vector2I resolution = { userSettings.clientWidth, userSettings.clientHeight };
 
-  d_window = std::make_unique<Sdk::Window>(
-    externalSettings.clientWidth, externalSettings.clientHeight, internalSettings.applicationName);
+  d_window = std::make_unique<Sdk::Window>(resolution, internalSettings.applicationName);
 
-  d_renderDevice = Dx::IRenderDevice::create(
-    d_window->getHWnd(), externalSettings.clientWidth, externalSettings.clientHeight);
+  d_renderDevice = Dx::IRenderDevice::create(d_window->getHWnd(), resolution);
   CONTRACT_ENSURE(d_renderDevice);
 
   d_resourceController = Dx::IResourceController::create(*d_renderDevice, internalSettings.assetsFolder);
   CONTRACT_ENSURE(d_resourceController);
 
-  d_renderer2d = Dx::IRenderer2d::create(*d_renderDevice);
+  d_renderer2d = Dx::IRenderer2d::create(*d_renderDevice, resolution);
   CONTRACT_ENSURE(d_renderer2d);
 
   d_inputDevice = Dx::IInputDevice::create(d_window->getHWnd());
@@ -92,11 +91,9 @@ void App::mainloop()
     const Sdk::Locker scopeLocker(*d_renderDevice);
 
     d_renderDevice->beginScene();
-    d_renderer2d->beginScene();
 
     d_game->render(*d_renderer2d);
 
-    d_renderer2d->endScene();
     d_renderDevice->endScene();
   }
 

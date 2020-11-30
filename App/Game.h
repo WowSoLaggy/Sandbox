@@ -25,6 +25,7 @@ public:
 
   GuiController& getGuiController();
   Controller& getController();
+  ViewportController& getViewportController();
 
 private:
   GameStateController d_gameStateController;

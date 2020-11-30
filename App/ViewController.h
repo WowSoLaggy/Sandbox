@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Fwd.h"
+#include "Viewport.h"
 
 #include <LaggyDx/LaggyDxFwd.h>
 #include <LaggySdk/EventHandler.h>
@@ -18,10 +19,16 @@ private:
   std::shared_ptr<CursorView> d_cursorView;
   std::vector<std::shared_ptr<ObjectView>> d_objectViews;
   std::vector<std::shared_ptr<IGuiView>> d_guiViews;
+  Viewport d_viewport;
+
+  void renderObjects(Dx::IRenderer2d& i_renderer) const;
+  void renderGui(Dx::IRenderer2d& i_renderer) const;
 
   void onObjectEntersViewport(const Object& i_object);
   void onObjectLeavesViewport(const Object& i_object);
+  void onViewportChanged(Viewport i_viewport);
   void onObjectTextureChanged(const Object& i_object);
+  void onObjectSizeChanged(const Object& i_object);
   void onGuiControlAdded(const IGuiControl& i_gui);
   void onGuiControlRemoving(const IGuiControl& i_gui);
   void onGuiControlTextureChanged(const IGuiControl& i_gui);

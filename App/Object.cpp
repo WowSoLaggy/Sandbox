@@ -7,7 +7,7 @@
 void Object::setTextureName(const std::string i_textureName)
 {
   d_textureName = std::move(i_textureName);
-  onTextureChanged();
+  notify(ObjectTextureChangedEvent(*this));
 }
 
 const std::string& Object::getTextureName() const
@@ -20,7 +20,7 @@ void Object::setPosition(const Sdk::Vector2D i_position)
 {
   const auto prevPosition = d_position;
   d_position = std::move(i_position);
-  onPositionChanged(std::move(prevPosition));
+  notify(ObjectPositionChangedEvent(*this, std::move(prevPosition)));
 }
 
 const Sdk::Vector2D& Object::getPosition() const
@@ -29,12 +29,13 @@ const Sdk::Vector2D& Object::getPosition() const
 }
 
 
-void Object::onPositionChanged(Sdk::Vector2D i_prevPosition)
+void Object::setSize(const double i_diameter)
 {
-  notify(ObjectPositionChangedEvent(*this, std::move(i_prevPosition)));
+  d_size = i_diameter;
+  notify(ObjectSizeChangedEvent(*this));
 }
 
-void Object::onTextureChanged()
+double Object::getSize() const
 {
-  notify(ObjectTextureChangedEvent(*this));
+  return d_size;
 }

@@ -16,9 +16,6 @@
     <Filter Include="src\View">
       <UniqueIdentifier>{1b4a4755-ff54-442d-8c57-f72747ab4335}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\ViewportController">
-      <UniqueIdentifier>{c86bfd83-3b57-44b7-abc0-419fe0029be3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Game\ResourceLoader">
       <UniqueIdentifier>{887bebbd-4faf-4c2a-8120-3903f481c70b}</UniqueIdentifier>
     </Filter>
@@ -54,6 +51,9 @@
     </Filter>
     <Filter Include="src\Game\GameStateController">
       <UniqueIdentifier>{77e0b254-8cf0-4783-86cb-1c2a4639aca1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Viewport">
+      <UniqueIdentifier>{c86bfd83-3b57-44b7-abc0-419fe0029be3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,7 +94,7 @@
       <Filter>src\World\WorldCreator</Filter>
     </ClCompile>
     <ClCompile Include="ViewportController.cpp">
-      <Filter>src\ViewportController</Filter>
+      <Filter>src\Viewport</Filter>
     </ClCompile>
     <ClCompile Include="ResourceLoader.cpp">
       <Filter>src\Game\ResourceLoader</Filter>
@@ -144,6 +144,15 @@
     <ClCompile Include="GameStateController.cpp">
       <Filter>src\Game\GameStateController</Filter>
     </ClCompile>
+    <ClCompile Include="KeyboardHandler.cpp">
+      <Filter>src\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionsMaps.cpp">
+      <Filter>src\Controller\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionsImpl.cpp">
+      <Filter>src\Controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -167,9 +176,6 @@
     <ClInclude Include="InternalSettings.h">
       <Filter>src\Settings</Filter>
     </ClInclude>
-    <ClInclude Include="ExternalSettings.h">
-      <Filter>src\Settings</Filter>
-    </ClInclude>
     <ClInclude Include="World.h">
       <Filter>src\World</Filter>
     </ClInclude>
@@ -189,7 +195,7 @@
       <Filter>src\World\WorldCreator</Filter>
     </ClInclude>
     <ClInclude Include="ViewportController.h">
-      <Filter>src\ViewportController</Filter>
+      <Filter>src\Viewport</Filter>
     </ClInclude>
     <ClInclude Include="ResourceLoader.h">
       <Filter>src\Game\ResourceLoader</Filter>
@@ -268,6 +274,21 @@
     </ClInclude>
     <ClInclude Include="GameEvents.h">
       <Filter>src\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Viewport.h">
+      <Filter>src\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardHandler.h">
+      <Filter>src\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionsMaps.h">
+      <Filter>src\Controller\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionsImpl.h">
+      <Filter>src\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="UserSettings.h">
+      <Filter>src\Settings</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

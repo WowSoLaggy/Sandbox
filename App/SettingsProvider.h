@@ -1,12 +1,12 @@
 #pragma once
 
-#include "ExternalSettings.h"
 #include "InternalSettings.h"
+#include "UserSettings.h"
 
 
 class SettingsProvider
 {
 public:
-  static const ExternalSettings& getDefaultExternalSettings();
+  static const UserSettings& getDefaultUserSettings();
   static const InternalSettings& getDefaultInternalSettings();
 };

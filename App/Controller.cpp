@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "Controller.h"
 
+#include "ActionsMaps.h"
 #include "CursorEvents.h"
 #include "Cursors.h"
-#include "IApp.h"
 #include "MouseEvents.h"
 
-#include <LaggyDx/KeyboardState.h>
-#include <LaggyDx/MouseState.h>
 
-
-Controller::Controller()
-  : d_mouseHandler(*this)
-  , d_cursor(getDefaultCursor())
+Controller::Controller(Game& io_game)
+  : d_cursor(getDefaultCursor())
+  , d_keyboardHandler(*this)
+  , d_mouseHandler(*this)
+  , d_actionsMap(getDefaultActionsMap())
+  , d_actionsImpl(io_game)
 {
   connectTo(d_cursor);
 }
@@ -35,15 +35,21 @@ const Cursor& Controller::getCursor() const
   return d_cursor;
 }
 
+const ActionsMap& Controller::getActionsMap() const
+{
+  return d_actionsMap;
+}
+
+
+void Controller::runAction(Action i_action)
+{
+  d_actionsImpl.runAction(i_action);
+}
+
 
 void Controller::handleKeyboard(const Dx::KeyboardState& i_keyboardState)
 {
-  const auto& pressedKeys = i_keyboardState.getPressedKeys();
-  const auto& currentKeys = i_keyboardState.getCurrentKeys();
-  const auto& releasedKeys = i_keyboardState.getReleasedKeys();
-
-  if (pressedKeys.Escape)
-    IApp::get().stop();
+  d_keyboardHandler.handleKeyboard(i_keyboardState);
 }
 
 void Controller::handleMouse(const Dx::MouseState& i_mouseState)
@@ -69,4 +75,5 @@ void Controller::onMouseMove()
 
 void Controller::onMouseWheelChange(int i_wheelChange)
 {
+  notify(MouseWheelEvent(d_cursor.getPosition(), i_wheelChange));
 }

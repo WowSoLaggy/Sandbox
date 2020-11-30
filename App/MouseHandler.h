@@ -3,6 +3,7 @@
 #include "Fwd.h"
 
 #include <LaggyDx/LaggyDxFwd.h>
+#include <LaggyDx/MouseKeys.h>
 
 
 class MouseHandler
@@ -14,4 +15,6 @@ public:
 
 private:
   Controller& d_contoller;
+
+  void onMouseButton(Dx::MouseKey i_key);
 };

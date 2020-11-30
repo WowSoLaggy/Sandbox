@@ -10,15 +10,19 @@ std::unique_ptr<World> WorldCreator::createWorld()
 {
   World world;
 
-  auto add = [&](const std::string i_textureName, const Sdk::Vector2D i_position)
+  auto createHuman = [&]() -> Object&
   {
-    Object obj;
-    obj.setTextureName(std::move(i_textureName));
-    obj.setPosition(std::move(i_position));
-    world.addObject(std::make_shared<Object>(std::move(obj)));
+    auto objPtr = std::make_shared<Object>();
+    world.addObject(objPtr);
+    objPtr->setSize(1);
+    objPtr->setTextureName("Man.png");
+    return *objPtr;
   };
 
-  add("Man.png", { 0, 0 });
+  {
+    // Adam
+    createHuman();
+  }
 
   return std::make_unique<World>(std::move(world));
 }

@@ -37,7 +37,7 @@ public:
   }
 
 private:
-  Dx::MouseKey d_mouseKey;
+  const Dx::MouseKey d_mouseKey = Dx::MouseKey::Left;
 };
 
 
@@ -66,4 +66,19 @@ public:
     : MouseKeyEvent(i_mouseKey, std::move(i_mousePos))
   {
   }
+};
+
+class MouseWheelEvent : public MouseEvent
+{
+public:
+  MouseWheelEvent(Sdk::Vector2I i_mousePos, const int i_wheelChange)
+    : MouseEvent(std::move(i_mousePos))
+    , d_wheelChange(i_wheelChange)
+  {
+  }
+
+  int getWheelChange() const { return d_wheelChange; }
+
+private:
+  const int d_wheelChange = 0;
 };

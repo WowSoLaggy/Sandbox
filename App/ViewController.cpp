@@ -10,6 +10,7 @@
 #include "ViewportEvents.h"
 
 #include <LaggyDx/IRenderer2d.h>
+#include <LaggyDx/Renderer2dGuard.h>
 
 
 void ViewController::processEvent(const Sdk::IEvent& i_event)
@@ -18,6 +19,8 @@ void ViewController::processEvent(const Sdk::IEvent& i_event)
     onObjectEntersViewport(event->getObject());
   else if (const auto* event = dynamic_cast<const ObjectLeavesViewport*>(&i_event))
     onObjectLeavesViewport(event->getObject());
+  else if (const auto* event = dynamic_cast<const ViewportChangedEvent*>(&i_event))
+    onViewportChanged(event->getViewport());
   else if (const auto* event = dynamic_cast<const ObjectTextureChangedEvent*>(&i_event))
     onObjectTextureChanged(event->getObject());
   else if (const auto* event = dynamic_cast<const GuiControlAddedEvent*>(&i_event))
@@ -53,11 +56,37 @@ void ViewController::update(const double i_dt)
 
 void ViewController::render(Dx::IRenderer2d& i_renderer) const
 {
+  renderObjects(i_renderer);
+  renderGui(i_renderer);
+}
+
+void ViewController::renderObjects(Dx::IRenderer2d& i_renderer) const
+{
+  const double scaleFactor = 64;
+
+  const Sdk::Vector2I offset{
+    (int)(-d_viewport.lookAt.x * scaleFactor + d_viewport.width / 2),
+    (int)(-d_viewport.lookAt.y * scaleFactor + d_viewport.height / 2) };
+
+  const Sdk::Vector2I scaleOrigin{
+    (int)(-d_viewport.lookAt.x * scaleFactor),
+    (int)(-d_viewport.lookAt.y * scaleFactor) };
+
+  const Dx::Renderer2dGuard rendererGuard(i_renderer,
+                                          offset,
+                                          scaleOrigin,
+                                          { d_viewport.scale, d_viewport.scale });
+
   for (const auto& view : d_objectViews)
   {
     i_renderer.resetTranslation();
     view->render(i_renderer);
   }
+}
+
+void ViewController::renderGui(Dx::IRenderer2d& i_renderer) const
+{
+  Dx::Renderer2dGuard rendererGuard(i_renderer);
 
   for (const auto& view : d_guiViews)
   {
@@ -92,6 +121,11 @@ void ViewController::onObjectLeavesViewport(const Object& i_object)
     d_objectViews.erase(it);
 }
 
+void ViewController::onViewportChanged(Viewport i_viewport)
+{
+  d_viewport = std::move(i_viewport);
+}
+
 void ViewController::onObjectTextureChanged(const Object& i_object)
 {
   const auto it = std::find_if(d_objectViews.cbegin(), d_objectViews.cend(),
@@ -103,6 +137,19 @@ void ViewController::onObjectTextureChanged(const Object& i_object)
 
   auto& objectView = **it;
   objectView.updateTextures();
+}
+
+void ViewController::onObjectSizeChanged(const Object& i_object)
+{
+  const auto it = std::find_if(d_objectViews.cbegin(), d_objectViews.cend(),
+                               [&](const auto& i_objectViewPtr) {
+                                 return &i_objectViewPtr->getObject() == &i_object;
+                               });
+  if (it == d_objectViews.cend())
+    return;
+
+  auto& objectView = **it;
+  objectView.updateSize();
 }
 
 void ViewController::onGuiControlAdded(const IGuiControl& i_gui)

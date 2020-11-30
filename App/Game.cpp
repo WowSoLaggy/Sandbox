@@ -4,6 +4,7 @@
 
 Game::Game()
   : d_gameStateController(*this)
+  , d_controller(*this)
 {
   d_worldController.connectTo(d_gameStateController);
   d_viewportController.connectTo(d_worldController);
@@ -48,4 +49,9 @@ GuiController& Game::getGuiController()
 Controller& Game::getController()
 {
   return d_controller;
+}
+
+ViewportController& Game::getViewportController()
+{
+  return d_viewportController;
 }
