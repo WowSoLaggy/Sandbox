@@ -10,7 +10,7 @@ namespace
 
     settings.clientWidth = 1600;
     settings.clientHeight = 900;
-    settings.cameraSpeed = 0.3;
+    settings.cameraSpeed = 0.2;
 
     return settings;
   }

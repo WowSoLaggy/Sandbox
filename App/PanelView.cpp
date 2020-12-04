@@ -13,6 +13,7 @@ PanelView::PanelView(const Panel& i_panel)
 {
   updateTextures();
   updateSize();
+  updateColor();
 }
 
 
@@ -29,7 +30,7 @@ void PanelView::update(const double i_dt)
 
 void PanelView::render(Dx::IRenderer2d& i_renderer) const
 {
-  i_renderer.setTranslation(-d_panel.getPosition());
+  i_renderer.setTranslation(d_panel.getPosition());
   i_renderer.renderSprite(d_sprite);
 }
 
@@ -47,4 +48,9 @@ void PanelView::updateTextures()
 void PanelView::updateSize()
 {
   d_sprite.setSize(d_panel.getSize());
+}
+
+void PanelView::updateColor()
+{
+  d_sprite.setColor(d_panel.getColor());
 }

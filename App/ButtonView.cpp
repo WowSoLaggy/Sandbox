@@ -33,7 +33,7 @@ void ButtonView::update(const double i_dt)
 
 void ButtonView::render(Dx::IRenderer2d& i_renderer) const
 {
-  i_renderer.setTranslation(-d_button.getPosition());
+  i_renderer.setTranslation(d_button.getPosition());
   i_renderer.renderSprite(d_sprite);
 
   const auto text = d_button.getText();

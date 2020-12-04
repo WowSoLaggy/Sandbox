@@ -10,6 +10,7 @@ struct InternalSettings
   std::string configFolder;
   std::string savesFolder;
 
-  int tileSize = 0;
   std::string defaultFontName;
+
+  double scaleFactor = 64;
 };

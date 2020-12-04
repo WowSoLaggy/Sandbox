@@ -3,6 +3,7 @@
 
 #include "IApp.h"
 #include "Object.h"
+#include "SettingsProvider.h"
 
 #include <LaggyDx/IRenderer2d.h>
 #include <LaggyDx/IResourceController.h>
@@ -29,7 +30,10 @@ void ObjectView::update(const double i_dt)
 
 void ObjectView::render(Dx::IRenderer2d& i_renderer) const
 {
-  i_renderer.setTranslation(d_sprite.getSize() / 2);
+  const double scaleFactor = SettingsProvider::getDefaultInternalSettings().scaleFactor;
+
+  const Sdk::Vector2I pos{ (int)(d_object.getPosition().x * scaleFactor), (int)(d_object.getPosition().y * scaleFactor) };
+  i_renderer.setTranslation(pos - d_sprite.getSize() / 2);
   i_renderer.renderSprite(d_sprite);
 }
 

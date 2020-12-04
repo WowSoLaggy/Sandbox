@@ -29,7 +29,7 @@ void CursorView::update(const double i_dt)
 
 void CursorView::render(Dx::IRenderer2d& i_renderer) const
 {
-  i_renderer.setTranslation(-d_cursor.getPosition());
+  i_renderer.setTranslation(d_cursor.getPosition());
   i_renderer.renderSprite(d_sprite);
 }
 

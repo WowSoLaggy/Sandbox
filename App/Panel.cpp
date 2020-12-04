@@ -37,3 +37,16 @@ const Sdk::Vector2I& Panel::getSize() const
 {
   return d_size;
 }
+
+
+void Panel::setColor(Sdk::Vector4F i_color)
+{
+  d_color = std::move(i_color);
+  notify(GuiControlColorChangedEvent(*this));
+}
+
+const Sdk::Vector4F& Panel::getColor() const
+{
+  return d_color;
+}
+

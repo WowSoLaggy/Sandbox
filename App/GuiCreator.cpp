@@ -66,6 +66,7 @@ void GuiCreator::deleteLoadingScreen()
   d_guiCollection.removeGuiByTag(TagLoading);
 }
 
+
 void GuiCreator::createMainMenu()
 {
   auto createPanel = [&]() -> Panel&

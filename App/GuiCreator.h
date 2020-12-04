@@ -10,6 +10,7 @@ public:
 
   void createLoadingScreen();
   void deleteLoadingScreen();
+
   void createMainMenu();
   void deleteMainMenu();
 

@@ -18,6 +18,7 @@ public:
 
   virtual void updateTextures() override;
   virtual void updateSize() override;
+  virtual void updateColor() override;
 
 private:
   const Panel& d_panel;

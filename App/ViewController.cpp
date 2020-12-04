@@ -7,6 +7,7 @@
 #include "GuiViewFactory.h"
 #include "IGuiView.h"
 #include "ObjectView.h"
+#include "SettingsProvider.h"
 #include "ViewportEvents.h"
 
 #include <LaggyDx/IRenderer2d.h>
@@ -33,6 +34,8 @@ void ViewController::processEvent(const Sdk::IEvent& i_event)
     onGuiControlSizeChanged(event->getGuiControl());
   else if (const auto* event = dynamic_cast<const GuiControlTextChangedEvent*>(&i_event))
     onGuiControlTextChanged(event->getGuiControl());
+  else if (const auto* event = dynamic_cast<const GuiControlColorChangedEvent*>(&i_event))
+    onGuiControlColorChanged(event->getGuiControl());
   else if (const auto* event = dynamic_cast<const CursorTextureChangedEvent*>(&i_event))
     onCursorTextureChanged();
   else if (const auto* event = dynamic_cast<const CursorSizeChangedEvent*>(&i_event))
@@ -62,20 +65,10 @@ void ViewController::render(Dx::IRenderer2d& i_renderer) const
 
 void ViewController::renderObjects(Dx::IRenderer2d& i_renderer) const
 {
-  const double scaleFactor = 64;
-
-  const Sdk::Vector2I offset{
-    (int)(-d_viewport.lookAt.x * scaleFactor + d_viewport.width / 2),
-    (int)(-d_viewport.lookAt.y * scaleFactor + d_viewport.height / 2) };
-
-  const Sdk::Vector2I scaleOrigin{
-    (int)(-d_viewport.lookAt.x * scaleFactor),
-    (int)(-d_viewport.lookAt.y * scaleFactor) };
-
   const Dx::Renderer2dGuard rendererGuard(i_renderer,
-                                          offset,
-                                          scaleOrigin,
-                                          { d_viewport.scale, d_viewport.scale });
+                                          d_offset,
+                                          d_scaleOrigin,
+                                          { d_scale, d_scale });
 
   for (const auto& view : d_objectViews)
   {
@@ -121,9 +114,19 @@ void ViewController::onObjectLeavesViewport(const Object& i_object)
     d_objectViews.erase(it);
 }
 
-void ViewController::onViewportChanged(Viewport i_viewport)
+void ViewController::onViewportChanged(const Viewport& i_viewport)
 {
-  d_viewport = std::move(i_viewport);
+  const double scaleFactor = SettingsProvider::getDefaultInternalSettings().scaleFactor;
+
+  d_offset = {
+    (int)(-i_viewport.lookAt.x * scaleFactor + i_viewport.width / 2),
+    (int)(-i_viewport.lookAt.y * scaleFactor + i_viewport.height / 2) };
+
+  d_scaleOrigin = {
+    (int)(i_viewport.lookAt.x * scaleFactor),
+    (int)(i_viewport.lookAt.y * scaleFactor) };
+
+  d_scale = i_viewport.scale;
 }
 
 void ViewController::onObjectTextureChanged(const Object& i_object)
@@ -206,6 +209,19 @@ void ViewController::onGuiControlTextChanged(const IGuiControl& i_gui)
 
   auto& guiView = **it;
   guiView.updateText();
+}
+
+void ViewController::onGuiControlColorChanged(const IGuiControl& i_gui)
+{
+  const auto it = std::find_if(d_guiViews.cbegin(), d_guiViews.cend(),
+                               [&](const auto& i_guiViewPtr) {
+                                 return &i_guiViewPtr->getGuiControl() == &i_gui;
+                               });
+  if (it == d_guiViews.cend())
+    return;
+
+  auto& guiView = **it;
+  guiView.updateColor();
 }
 
 void ViewController::onCursorTextureChanged()

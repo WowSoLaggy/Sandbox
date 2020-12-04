@@ -19,14 +19,17 @@ private:
   std::shared_ptr<CursorView> d_cursorView;
   std::vector<std::shared_ptr<ObjectView>> d_objectViews;
   std::vector<std::shared_ptr<IGuiView>> d_guiViews;
-  Viewport d_viewport;
+
+  Sdk::Vector2I d_offset;
+  Sdk::Vector2I d_scaleOrigin;
+  double d_scale = 1;
 
   void renderObjects(Dx::IRenderer2d& i_renderer) const;
   void renderGui(Dx::IRenderer2d& i_renderer) const;
 
   void onObjectEntersViewport(const Object& i_object);
   void onObjectLeavesViewport(const Object& i_object);
-  void onViewportChanged(Viewport i_viewport);
+  void onViewportChanged(const Viewport& i_viewport);
   void onObjectTextureChanged(const Object& i_object);
   void onObjectSizeChanged(const Object& i_object);
   void onGuiControlAdded(const IGuiControl& i_gui);
@@ -34,6 +37,7 @@ private:
   void onGuiControlTextureChanged(const IGuiControl& i_gui);
   void onGuiControlSizeChanged(const IGuiControl& i_gui);
   void onGuiControlTextChanged(const IGuiControl& i_gui);
+  void onGuiControlColorChanged(const IGuiControl& i_gui);
   void onCursorTextureChanged();
   void onCursorSizeChanged();
   void onCursorShown(const Cursor& i_cursor);

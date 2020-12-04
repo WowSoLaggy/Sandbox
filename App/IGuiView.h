@@ -16,4 +16,5 @@ public:
   virtual void updateTextures() {};
   virtual void updateSize() {};
   virtual void updateText() {};
+  virtual void updateColor() {};
 };

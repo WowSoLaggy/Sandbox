@@ -64,3 +64,12 @@ public:
   {
   }
 };
+
+class GuiControlColorChangedEvent : public GuiControlEvent
+{
+public:
+  GuiControlColorChangedEvent(const IGuiControl& i_gui)
+    : GuiControlEvent(i_gui)
+  {
+  }
+};

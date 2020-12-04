@@ -24,5 +24,11 @@ std::unique_ptr<World> WorldCreator::createWorld()
     createHuman();
   }
 
+  {
+    // Tom
+    auto& obj = createHuman();
+    obj.setPosition({ 5, 0 });
+  }
+
   return std::make_unique<World>(std::move(world));
 }
