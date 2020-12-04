@@ -4,9 +4,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{e3c42202-4130-4396-bce5-ca70e4163e84}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Application">
-      <UniqueIdentifier>{358692ec-a02f-46c1-80d7-174f4d4e8325}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Game">
       <UniqueIdentifier>{d21291c2-fbde-4c58-b57f-0cd499db8a83}</UniqueIdentifier>
     </Filter>
@@ -55,6 +52,9 @@
     <Filter Include="src\Viewport">
       <UniqueIdentifier>{c86bfd83-3b57-44b7-abc0-419fe0029be3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\App">
+      <UniqueIdentifier>{358692ec-a02f-46c1-80d7-174f4d4e8325}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -64,10 +64,10 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="IApp.cpp">
-      <Filter>src\Application</Filter>
+      <Filter>src\App</Filter>
     </ClCompile>
     <ClCompile Include="App.cpp">
-      <Filter>src\Application</Filter>
+      <Filter>src\App</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>src\Game</Filter>
@@ -159,10 +159,10 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="IApp.h">
-      <Filter>src\Application</Filter>
+      <Filter>src\App</Filter>
     </ClInclude>
     <ClInclude Include="App.h">
-      <Filter>src\Application</Filter>
+      <Filter>src\App</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>src\Game</Filter>
@@ -289,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="UserSettings.h">
       <Filter>src\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionType.h">
+      <Filter>src\Controller\Actions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

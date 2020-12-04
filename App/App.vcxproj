@@ -197,6 +197,7 @@
     <ClInclude Include="ActionsMaps.h" />
     <ClInclude Include="Actions.h" />
     <ClInclude Include="ActionsMap.h" />
+    <ClInclude Include="ActionType.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonView.h" />

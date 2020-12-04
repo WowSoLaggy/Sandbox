@@ -172,15 +172,6 @@ namespace
     return actions;
   }
 
-  std::unordered_set<Dx::KeyboardKey> getAllKeysFromStates(const Dx::KeyboardState& i_keyboardState)
-  {
-    auto keys = getKeys(i_keyboardState.getPressedKeys());
-    const auto keys2 = getKeys(i_keyboardState.getCurrentKeys());
-
-    keys.insert(keys2.cbegin(), keys2.cend());
-    return keys;
-  }
-
 } // anon NS
 
 
@@ -192,11 +183,23 @@ KeyboardHandler::KeyboardHandler(Controller& io_controller)
 
 void KeyboardHandler::handleKeyboard(const Dx::KeyboardState& i_keyboardState)
 {
-  const auto keys = getAllKeysFromStates(i_keyboardState);
   const auto& actionsMap = d_contoller.getActionsMap();
-  for (const auto key : keys)
+
+  for (const auto key : getKeys(i_keyboardState.getPressedKeys()))
   {
-    if (const auto actionOpt = actionsMap.getAction(key))
+    if (const auto actionOpt = actionsMap.getAction(key, ActionType::OnPress))
+      d_contoller.runAction(*actionOpt);
+  }
+
+  for (const auto key : getKeys(i_keyboardState.getReleasedKeys()))
+  {
+    if (const auto actionOpt = actionsMap.getAction(key, ActionType::OnRelease))
+      d_contoller.runAction(*actionOpt);
+  }
+
+  for (const auto key : getKeys(i_keyboardState.getCurrentKeys()))
+  {
+    if (const auto actionOpt = actionsMap.getAction(key, ActionType::Continuous))
       d_contoller.runAction(*actionOpt);
   }
 }

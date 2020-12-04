@@ -6,17 +6,22 @@ ActionsMap getDefaultActionsMap()
 {
   ActionsMap actionsMap;
 
-  auto set = [&](const auto i_key, const Action i_action) {
+  auto setKey = [&](const Dx::KeyboardKey i_key, const Action i_action, const ActionType i_actionType) {
+    actionsMap.setAction(i_key, i_action, i_actionType);
+  };
+  auto setMouse = [&](const Dx::MouseKey i_key, const Action i_action) {
     actionsMap.setAction(i_key, i_action);
   };
 
-  set(Dx::KeyboardKey::Escape, Action::QuitGame);
-  set(Dx::KeyboardKey::A, Action::MoveCameraLeft);
-  set(Dx::KeyboardKey::W, Action::MoveCameraUp);
-  set(Dx::KeyboardKey::D, Action::MoveCameraRight);
-  set(Dx::KeyboardKey::S, Action::MoveCameraDown);
-  set(Dx::MouseKey::WheelUp, Action::ZoomIn);
-  set(Dx::MouseKey::WheelDown, Action::ZoomOut);
+  setKey(Dx::KeyboardKey::Escape, Action::QuitGame, ActionType::OnPress);
+
+  setKey(Dx::KeyboardKey::A, Action::MoveCameraLeft, ActionType::Continuous);
+  setKey(Dx::KeyboardKey::W, Action::MoveCameraUp, ActionType::Continuous);
+  setKey(Dx::KeyboardKey::D, Action::MoveCameraRight, ActionType::Continuous);
+  setKey(Dx::KeyboardKey::S, Action::MoveCameraDown, ActionType::Continuous);
+
+  setMouse(Dx::MouseKey::WheelUp, Action::ZoomIn);
+  setMouse(Dx::MouseKey::WheelDown, Action::ZoomOut);
 
   return actionsMap;
 }
