@@ -178,14 +178,19 @@
     <ClCompile Include="ObjectView.cpp" />
     <ClCompile Include="Panel.cpp" />
     <ClCompile Include="PanelView.cpp" />
+    <ClCompile Include="RandomTerrainTypeGenerator.cpp" />
     <ClCompile Include="ResourceLoader.cpp" />
     <ClCompile Include="SettingsProvider.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TerrainCreator.cpp" />
+    <ClCompile Include="TerrainTextures.cpp" />
+    <ClCompile Include="TerrainView.cpp" />
     <ClCompile Include="ViewController.cpp" />
     <ClCompile Include="ViewportController.cpp" />
     <ClCompile Include="World.cpp" />
@@ -206,6 +211,13 @@
     <ClInclude Include="CursorEvents.h" />
     <ClInclude Include="Cursors.h" />
     <ClInclude Include="CursorView.h" />
+    <ClInclude Include="RandomTerrainTypeGenerator.h" />
+    <ClInclude Include="Terrain.h" />
+    <ClInclude Include="TerrainCreator.h" />
+    <ClInclude Include="TerrainEvents.h" />
+    <ClInclude Include="TerrainTextures.h" />
+    <ClInclude Include="TerrainType.h" />
+    <ClInclude Include="TerrainView.h" />
     <ClInclude Include="UserSettings.h" />
     <ClInclude Include="Fwd.h" />
     <ClInclude Include="Game.h" />

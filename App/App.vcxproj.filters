@@ -55,6 +55,9 @@
     <Filter Include="src\App">
       <UniqueIdentifier>{358692ec-a02f-46c1-80d7-174f4d4e8325}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\World\Terrain">
+      <UniqueIdentifier>{78688f93-848f-455e-814a-ebab59372a29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -152,6 +155,21 @@
     </ClCompile>
     <ClCompile Include="ActionsImpl.cpp">
       <Filter>src\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>src\World\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomTerrainTypeGenerator.cpp">
+      <Filter>src\World\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainCreator.cpp">
+      <Filter>src\World\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainView.cpp">
+      <Filter>src\View</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainTextures.cpp">
+      <Filter>src\World\Terrain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +310,27 @@
     </ClInclude>
     <ClInclude Include="ActionType.h">
       <Filter>src\Controller\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>src\World\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainType.h">
+      <Filter>src\World\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomTerrainTypeGenerator.h">
+      <Filter>src\World\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainCreator.h">
+      <Filter>src\World\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainEvents.h">
+      <Filter>src\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainView.h">
+      <Filter>src\View</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainTextures.h">
+      <Filter>src\World\Terrain</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

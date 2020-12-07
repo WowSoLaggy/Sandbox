@@ -22,6 +22,7 @@ ActionsMap getDefaultActionsMap()
 
   setMouse(Dx::MouseKey::WheelUp, Action::ZoomIn);
   setMouse(Dx::MouseKey::WheelDown, Action::ZoomOut);
+  setMouse(Dx::MouseKey::Middle, Action::ResetZoom);
 
   return actionsMap;
 }

@@ -3,7 +3,6 @@
 
 #include "SettingsProvider.h"
 
-#include <LaggySdk/Contracts.h>
 #include <LaggySdk/Cursor.h>
 #include <LaggySdk/HandleMessages.h>
 #include <LaggySdk/Locker.h>

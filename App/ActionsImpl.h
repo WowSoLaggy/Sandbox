@@ -18,6 +18,8 @@ private:
 
   void zoomIn() const;
   void zoomOut() const;
+  void resetZoom() const;
+
   void moveCameraLeft() const;
   void moveCameraUp() const;
   void moveCameraRight() const;

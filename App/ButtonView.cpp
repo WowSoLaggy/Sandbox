@@ -8,7 +8,6 @@
 #include <LaggyDx/IFontResource.h>
 #include <LaggyDx/IRenderer2d.h>
 #include <LaggyDx/IResourceController.h>
-#include <LaggySdk/Contracts.h>
 
 
 ButtonView::ButtonView(const Button& i_button)

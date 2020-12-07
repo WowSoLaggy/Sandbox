@@ -4,7 +4,6 @@
 #include "IApp.h"
 
 #include <LaggyDx/IResourceController.h>
-#include <LaggySdk/Contracts.h>
 
 
 namespace

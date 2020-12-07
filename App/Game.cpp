@@ -8,6 +8,7 @@ Game::Game()
 {
   d_worldController.connectTo(d_gameStateController);
   d_viewportController.connectTo(d_worldController);
+  d_viewController.connectTo(d_worldController);
   d_viewController.connectTo(d_viewportController);
   d_viewController.connectTo(d_guiController);
   d_viewController.connectTo(d_controller);

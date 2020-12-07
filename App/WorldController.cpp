@@ -7,8 +7,6 @@
 #include "WorldCreator.h"
 #include "WorldEvents.h"
 
-#include <LaggySdk/Contracts.h>
-
 
 WorldController::~WorldController()
 {

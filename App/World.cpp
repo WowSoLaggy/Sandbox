@@ -3,11 +3,13 @@
 
 #include "Object.h"
 #include "ObjectEvents.h"
+#include "TerrainEvents.h"
 
 
 World::~World()
 {
   removeAllObjects();
+  resetTerrain();
 }
 
 
@@ -18,11 +20,31 @@ void World::processEvent(const Sdk::IEvent& i_event)
 }
 
 
+const std::optional<Terrain>& World::getTerrain() const
+{
+  return d_terrain;
+}
+
+void World::setTerrain(Terrain i_terrain)
+{
+  d_terrain.emplace(std::move(i_terrain));
+  notify(TerrainAddedEvent(*d_terrain));
+}
+
+void World::resetTerrain()
+{
+  if (d_terrain.has_value())
+  {
+    d_terrain.reset();
+    notify(TerrainResetEvent());
+  }
+}
+
+
 const std::vector<std::shared_ptr<Object>>& World::getObjects() const
 {
   return d_objects;
 }
-
 
 void World::addObject(std::shared_ptr<Object> i_object)
 {

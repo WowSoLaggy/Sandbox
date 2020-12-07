@@ -25,6 +25,11 @@ namespace
     settings.savesFolder = "Saves";
     settings.defaultFontName = "MyFont.spritefont";
 
+    settings.scaleFactor = 64;
+
+    settings.maxZoom = 3.0;
+    settings.minZoom = 0.75;
+
     return settings;
   }
 

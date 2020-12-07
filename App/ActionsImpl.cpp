@@ -2,10 +2,9 @@
 #include "ActionsImpl.h"
 
 #include "Game.h"
+#include "GuiCreator.h"
 #include "IApp.h"
 #include "SettingsProvider.h"
-
-#include <LaggySdk/Contracts.h>
 
 
 namespace
@@ -37,6 +36,10 @@ void ActionsImpl::runAction(const Action i_action) const
   case Action::ZoomOut:
     zoomOut();
     break;
+  case Action::ResetZoom:
+    resetZoom();
+    break;
+
   case Action::MoveCameraLeft:
     moveCameraLeft();
     break;
@@ -49,6 +52,7 @@ void ActionsImpl::runAction(const Action i_action) const
   case Action::MoveCameraDown:
     moveCameraDown();
     break;
+
   default:
     CONTRACT_ASSERT(false);
     break;
@@ -65,16 +69,30 @@ void ActionsImpl::quitGame() const
 void ActionsImpl::zoomIn() const
 {
   auto viewport = d_game.getViewportController().getViewport();
-  viewport.scale *= 1.1;
+
+  const double maxZoom = SettingsProvider::getDefaultInternalSettings().maxZoom;
+  viewport.scale = std::min(viewport.scale * 1.1, maxZoom);
+
   d_game.getViewportController().setViewport(viewport);
 }
 
 void ActionsImpl::zoomOut() const
 {
   auto viewport = d_game.getViewportController().getViewport();
-  viewport.scale *= 0.9;
+  
+  const double minZoom = SettingsProvider::getDefaultInternalSettings().minZoom;
+  viewport.scale = std::max(viewport.scale * 0.9, minZoom);
+
   d_game.getViewportController().setViewport(viewport);
 }
+
+void ActionsImpl::resetZoom() const
+{
+  auto viewport = d_game.getViewportController().getViewport();
+  viewport.scale = 1.0;
+  d_game.getViewportController().setViewport(viewport);
+}
+
 
 void ActionsImpl::moveCameraLeft() const
 {

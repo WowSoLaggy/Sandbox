@@ -55,6 +55,14 @@ void MouseHandler::handleMouse(const Dx::MouseState& i_mouseState)
   }
   else if (i_mouseState.getRightButtonState() == Dx::ButtonState::Released)
     d_contoller.onMouseRelease(Dx::MouseKey::Right);
+
+  if (i_mouseState.getMiddleButtonState() == Dx::ButtonState::Pressed)
+  {
+    onMouseButton(Dx::MouseKey::Middle);
+    d_contoller.onMouseClick(Dx::MouseKey::Middle);
+  }
+  else if (i_mouseState.getMiddleButtonState() == Dx::ButtonState::Released)
+    d_contoller.onMouseRelease(Dx::MouseKey::Middle);
 }
 
 

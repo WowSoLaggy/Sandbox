@@ -12,5 +12,9 @@ struct InternalSettings
 
   std::string defaultFontName;
 
-  double scaleFactor = 64;
+  /// Number of pixels in one meter with scale = 1
+  double scaleFactor = 0;
+
+  double maxZoom = 0;
+  double minZoom = 0;
 };

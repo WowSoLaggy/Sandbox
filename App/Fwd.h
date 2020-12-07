@@ -6,6 +6,7 @@ class Game;
 class GameStateController;
 
 class World;
+class Terrain;
 class Object;
 
 class GuiCollection;

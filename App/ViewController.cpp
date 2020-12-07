@@ -8,7 +8,10 @@
 #include "IGuiView.h"
 #include "ObjectView.h"
 #include "SettingsProvider.h"
+#include "TerrainEvents.h"
 #include "ViewportEvents.h"
+#include "World.h"
+#include "WorldEvents.h"
 
 #include <LaggyDx/IRenderer2d.h>
 #include <LaggyDx/Renderer2dGuard.h>
@@ -24,6 +27,16 @@ void ViewController::processEvent(const Sdk::IEvent& i_event)
     onViewportChanged(event->getViewport());
   else if (const auto* event = dynamic_cast<const ObjectTextureChangedEvent*>(&i_event))
     onObjectTextureChanged(event->getObject());
+  else if (const auto* event = dynamic_cast<const ObjectSizeChangedEvent*>(&i_event))
+    onObjectSizeChanged(event->getObject());
+  else if (const auto* event = dynamic_cast<const TerrainAddedEvent*>(&i_event))
+    onTerrainAdded(event->getTerrain());
+  else if (const auto* event = dynamic_cast<const TerrainResetEvent*>(&i_event))
+    onTerrainReset();
+  else if (const auto* event = dynamic_cast<const WorldCreatedEvent*>(&i_event))
+    onWorldCreated(event->getWorld());
+  else if (const auto* event = dynamic_cast<const WorldDisposingEvent*>(&i_event))
+    onWorldDisposing();
   else if (const auto* event = dynamic_cast<const GuiControlAddedEvent*>(&i_event))
     onGuiControlAdded(event->getGuiControl());
   else if (const auto* event = dynamic_cast<const GuiControlRemovingEvent*>(&i_event))
@@ -49,6 +62,8 @@ void ViewController::processEvent(const Sdk::IEvent& i_event)
 
 void ViewController::update(const double i_dt)
 {
+  if (d_terrainView)
+    d_terrainView->update(i_dt);
   for (auto& view : d_objectViews)
     view->update(i_dt);
   for (auto& view : d_guiViews)
@@ -59,16 +74,22 @@ void ViewController::update(const double i_dt)
 
 void ViewController::render(Dx::IRenderer2d& i_renderer) const
 {
-  renderObjects(i_renderer);
+  renderWorld(i_renderer);
   renderGui(i_renderer);
 }
 
-void ViewController::renderObjects(Dx::IRenderer2d& i_renderer) const
+void ViewController::renderWorld(Dx::IRenderer2d& i_renderer) const
 {
   const Dx::Renderer2dGuard rendererGuard(i_renderer,
                                           d_offset,
                                           d_scaleOrigin,
                                           { d_scale, d_scale });
+
+  if (d_terrainView)
+  {
+    i_renderer.resetTranslation();
+    d_terrainView->render(i_renderer);
+  }
 
   for (const auto& view : d_objectViews)
   {
@@ -155,6 +176,28 @@ void ViewController::onObjectSizeChanged(const Object& i_object)
   objectView.updateSize();
 }
 
+void ViewController::onTerrainAdded(const Terrain& i_terrain)
+{
+  d_terrainView.emplace(i_terrain);
+}
+
+void ViewController::onTerrainReset()
+{
+  d_terrainView.reset();
+}
+
+void ViewController::onWorldCreated(const World& i_world)
+{
+  if (const auto& terrain = i_world.getTerrain())
+    onTerrainAdded(*terrain);
+}
+
+void ViewController::onWorldDisposing()
+{
+  if (d_terrainView)
+    onTerrainReset();
+}
+
 void ViewController::onGuiControlAdded(const IGuiControl& i_gui)
 {
   const auto viewPtr = getGuiView(i_gui);
@@ -238,7 +281,7 @@ void ViewController::onCursorSizeChanged()
 
 void ViewController::onCursorShown(const Cursor& i_cursor)
 {
-  d_cursorView = std::make_shared<CursorView>(i_cursor);
+  d_cursorView.emplace(i_cursor);
 }
 
 void ViewController::onCursorHidden()

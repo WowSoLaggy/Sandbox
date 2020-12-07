@@ -6,8 +6,6 @@
 #include "Panel.h"
 #include "PanelView.h"
 
-#include <LaggySdk/Contracts.h>
-
 
 std::shared_ptr<IGuiView> getGuiView(const IGuiControl& i_gui)
 {

@@ -1,6 +1,8 @@
 #pragma once
 
+#include "CursorView.h"
 #include "Fwd.h"
+#include "TerrainView.h"
 #include "Viewport.h"
 
 #include <LaggyDx/LaggyDxFwd.h>
@@ -16,15 +18,16 @@ public:
   void render(Dx::IRenderer2d& i_renderer) const;
 
 private:
-  std::shared_ptr<CursorView> d_cursorView;
+  std::optional<TerrainView> d_terrainView;
   std::vector<std::shared_ptr<ObjectView>> d_objectViews;
   std::vector<std::shared_ptr<IGuiView>> d_guiViews;
+  std::optional<CursorView> d_cursorView;
 
   Sdk::Vector2I d_offset;
   Sdk::Vector2I d_scaleOrigin;
   double d_scale = 1;
 
-  void renderObjects(Dx::IRenderer2d& i_renderer) const;
+  void renderWorld(Dx::IRenderer2d& i_renderer) const;
   void renderGui(Dx::IRenderer2d& i_renderer) const;
 
   void onObjectEntersViewport(const Object& i_object);
@@ -32,6 +35,10 @@ private:
   void onViewportChanged(const Viewport& i_viewport);
   void onObjectTextureChanged(const Object& i_object);
   void onObjectSizeChanged(const Object& i_object);
+  void onTerrainAdded(const Terrain& i_terrain);
+  void onTerrainReset();
+  void onWorldCreated(const World& i_world);
+  void onWorldDisposing();
   void onGuiControlAdded(const IGuiControl& i_gui);
   void onGuiControlRemoving(const IGuiControl& i_gui);
   void onGuiControlTextureChanged(const IGuiControl& i_gui);
