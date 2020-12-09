@@ -19,5 +19,5 @@ private:
   const Terrain& d_terrain;
   std::unordered_map<TerrainType, const Dx::ITextureResource*> d_textures;
 
-  void updateTextures();
+  void prepareTextures();
 };

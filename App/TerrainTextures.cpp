@@ -25,3 +25,8 @@ const std::string& getTerrainTexture(const TerrainType i_terrainType)
   CONTRACT_EXPECT(exists(i_terrainType));
   return TexturesMap.at(i_terrainType);
 }
+
+const std::unordered_map<TerrainType, std::string>& getAllTerrainTextures()
+{
+  return TexturesMap;
+}

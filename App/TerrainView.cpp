@@ -13,7 +13,7 @@
 TerrainView::TerrainView(const Terrain& i_terrain)
   : d_terrain(i_terrain)
 {
-  updateTextures();
+  prepareTextures();
 }
 
 
@@ -46,21 +46,15 @@ void TerrainView::render(Dx::IRenderer2d& i_renderer) const
 }
 
 
-void TerrainView::updateTextures()
+void TerrainView::prepareTextures()
 {
   if (!d_textures.empty())
     d_textures.clear();
 
   auto& rc = IApp::get().getResourceController();
-  for (int y = 0; y < d_terrain.getYSize(); ++y)
+  for (const auto&[type, name] : getAllTerrainTextures())
   {
-    for (int x = 0; x < d_terrain.getXSize(); ++x)
-    {
-      const auto terrainType = d_terrain.getTerrainType(x, y);
-      const auto& textureName = getTerrainTexture(terrainType);
-      const auto& texture = rc.getTextureResource(textureName);
-
-      d_textures[terrainType] = &texture;
-    }
+    const auto& texture = rc.getTextureResource(name);
+    d_textures[type] = &texture;
   }
 }
