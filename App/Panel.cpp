@@ -50,3 +50,14 @@ const Sdk::Vector4F& Panel::getColor() const
   return d_color;
 }
 
+
+void Panel::setText(std::string i_text)
+{
+  d_text = std::move(i_text);
+  notify(GuiControlTextChangedEvent(*this));
+}
+
+const std::string& Panel::getText() const
+{
+  return d_text;
+}

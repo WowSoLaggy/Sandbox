@@ -1,17 +1,27 @@
 #include "stdafx.h"
 #include "ActionsImpl.h"
 
+#include "Console.h"
 #include "Game.h"
 #include "GuiCreator.h"
 #include "IApp.h"
+#include "Log.h"
 #include "SettingsProvider.h"
 
 
 namespace
 {
+  const std::string ConsoleTag = "console";
+
   double getCameraSpeed()
   {
     return SettingsProvider::getDefaultUserSettings().cameraSpeed;
+  }
+
+  Sdk::Vector2I getClientSize()
+  {
+    const auto& settings = SettingsProvider::getDefaultUserSettings();
+    return { settings.clientWidth, settings.clientHeight };
   }
 
 } // anon NS
@@ -23,13 +33,17 @@ ActionsImpl::ActionsImpl(Game& io_game)
 }
 
 
-void ActionsImpl::runAction(const Action i_action) const
+void ActionsImpl::runAction(const Action i_action)
 {
   switch (i_action)
   {
   case Action::QuitGame:
     quitGame();
     break;
+  case Action::SwitchConsole:
+    switchConsole();
+    break;
+
   case Action::ZoomIn:
     zoomIn();
     break;
@@ -63,6 +77,37 @@ void ActionsImpl::runAction(const Action i_action) const
 void ActionsImpl::quitGame() const
 {
   IApp::get().stop();
+}
+
+
+void ActionsImpl::switchConsole()
+{
+  d_isConsoleShown ? hideConsole() : showConsole();
+}
+
+void ActionsImpl::showConsole()
+{
+  auto consolePtr = std::make_shared<Console>();
+
+  consolePtr->setTag(ConsoleTag);
+
+  const auto size = getClientSize();
+  consolePtr->setSize({ size.x, size.y / 2 });
+
+  consolePtr->setTextureName("Black.png");
+  consolePtr->setColor({ 1, 1, 1, 0.5f });
+
+  d_game.getGuiController().getGuiCollection().addGui(consolePtr);
+
+  consolePtr->connectTo(Log::getInstance());
+
+  d_isConsoleShown = true;
+}
+
+void ActionsImpl::hideConsole()
+{
+  d_game.getGuiController().getGuiCollection().removeGuiByTag(ConsoleTag);
+  d_isConsoleShown = false;
 }
 
 

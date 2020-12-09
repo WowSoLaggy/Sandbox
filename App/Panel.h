@@ -20,9 +20,13 @@ public:
   void setColor(Sdk::Vector4F i_color);
   const Sdk::Vector4F& getColor() const;
 
+  void setText(std::string i_text);
+  const std::string& getText() const;
+
 private:
   std::string d_textureName;
   Sdk::Vector2I d_position;
   Sdk::Vector2I d_size;
   Sdk::Vector4F d_color = Sdk::Vector4F::identity();
+  std::string d_text;
 };

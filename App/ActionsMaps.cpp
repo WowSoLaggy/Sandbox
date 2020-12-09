@@ -14,6 +14,7 @@ ActionsMap getDefaultActionsMap()
   };
 
   setKey(Dx::KeyboardKey::Escape, Action::QuitGame, ActionType::OnPress);
+  setKey(Dx::KeyboardKey::OemTilde, Action::SwitchConsole, ActionType::OnPress);
 
   setKey(Dx::KeyboardKey::A, Action::MoveCameraLeft, ActionType::Continuous);
   setKey(Dx::KeyboardKey::W, Action::MoveCameraUp, ActionType::Continuous);

@@ -160,6 +160,7 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonView.cpp" />
+    <ClCompile Include="Console.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Cursors.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="GuiViewFactory.cpp" />
     <ClCompile Include="IApp.cpp" />
     <ClCompile Include="KeyboardHandler.cpp" />
+    <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseHandler.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -191,6 +193,7 @@
     <ClCompile Include="TerrainCreator.cpp" />
     <ClCompile Include="TerrainTextures.cpp" />
     <ClCompile Include="TerrainView.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="ViewController.cpp" />
     <ClCompile Include="ViewportController.cpp" />
     <ClCompile Include="World.cpp" />
@@ -206,11 +209,14 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonView.h" />
+    <ClInclude Include="Console.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="CursorEvents.h" />
     <ClInclude Include="Cursors.h" />
     <ClInclude Include="CursorView.h" />
+    <ClInclude Include="LogEvents.h" />
+    <ClInclude Include="Log.h" />
     <ClInclude Include="RandomTerrainTypeGenerator.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainCreator.h" />
@@ -243,6 +249,7 @@
     <ClInclude Include="ResourceLoader.h" />
     <ClInclude Include="SettingsProvider.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="ViewController.h" />
     <ClInclude Include="Viewport.h" />
     <ClInclude Include="ViewportController.h" />

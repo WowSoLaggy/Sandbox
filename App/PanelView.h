@@ -19,8 +19,13 @@ public:
   virtual void updateTextures() override;
   virtual void updateSize() override;
   virtual void updateColor() override;
+  virtual void updateText() override;
 
 private:
   const Panel& d_panel;
   Dx::AnimatedSprite d_sprite;
+  const Dx::IFontResource* d_font = nullptr;
+
+  void updateTextFont();
+  void resetTextFont();
 };

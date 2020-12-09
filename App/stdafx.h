@@ -4,3 +4,5 @@
 #include <LaggySdk/Contracts.h>
 
 #include <objbase.h>
+
+#include "Log.h"
