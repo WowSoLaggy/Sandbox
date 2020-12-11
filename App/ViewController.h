@@ -6,6 +6,7 @@
 #include "Viewport.h"
 
 #include <LaggyDx/LaggyDxFwd.h>
+#include <LaggyDx/Projector.h>
 #include <LaggySdk/EventHandler.h>
 
 
@@ -26,6 +27,7 @@ private:
   Sdk::Vector2I d_offset;
   Sdk::Vector2I d_scaleOrigin;
   double d_scale = 1;
+  Dx::Projector d_projector;
 
   void renderWorld(Dx::IRenderer2d& i_renderer) const;
   void renderGui(Dx::IRenderer2d& i_renderer) const;
@@ -49,4 +51,7 @@ private:
   void onCursorSizeChanged();
   void onCursorShown(const Cursor& i_cursor);
   void onCursorHidden();
+
+  void updateProjector();
+  void updateTerrainViewArea();
 };

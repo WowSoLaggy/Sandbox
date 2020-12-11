@@ -29,9 +29,9 @@ void TerrainView::render(Dx::IRenderer2d& i_renderer) const
   const int scaleFactor = (int)SettingsProvider::getDefaultInternalSettings().scaleFactor;
   sprite.setSize({ scaleFactor, scaleFactor });
 
-  for (int y = 0; y < d_terrain.getYSize(); ++y)
+  for (int y = d_drawTop; y <= d_drawBottom; ++y)
   {
-    for (int x = 0; x < d_terrain.getXSize(); ++x)
+    for (int x = d_drawLeft; x <= d_drawRight; ++x)
     {
       sprite.setPosition({ x * scaleFactor, y * scaleFactor });
       
@@ -43,6 +43,17 @@ void TerrainView::render(Dx::IRenderer2d& i_renderer) const
       i_renderer.renderSprite(sprite);
     }
   }
+}
+
+
+void TerrainView::updateDrawArea(const Sdk::RectI& i_area)
+{
+  const int scaleFactor = (int)SettingsProvider::getDefaultInternalSettings().scaleFactor;
+
+  d_drawLeft = std::max<int>(0, (int)std::floor((double)i_area.left() / scaleFactor));
+  d_drawRight = std::min<int>(d_terrain.getXSize() - 1, (int)std::ceil((double)i_area.right() / scaleFactor));
+  d_drawTop = std::max<int>(0, (int)std::floor((double)i_area.top() / scaleFactor));
+  d_drawBottom = std::min<int>(d_terrain.getYSize() - 1, (int)std::ceil((double)i_area.bottom() / scaleFactor));
 }
 
 

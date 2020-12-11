@@ -15,6 +15,18 @@
 
 #include <LaggyDx/IRenderer2d.h>
 #include <LaggyDx/Renderer2dGuard.h>
+#include <LaggySdk/Vector.h>
+
+
+namespace
+{
+  Sdk::Vector2I getClientSize()
+  {
+    const auto userSettings = SettingsProvider::getDefaultUserSettings();
+    return { userSettings.clientWidth, userSettings.clientHeight };
+  }
+
+} // anon NS
 
 
 void ViewController::processEvent(const Sdk::IEvent& i_event)
@@ -76,6 +88,9 @@ void ViewController::render(Dx::IRenderer2d& i_renderer) const
 {
   renderWorld(i_renderer);
   renderGui(i_renderer);
+
+  const int renderedSprites = i_renderer.resetRenderedSprites();
+  Log::info("Rendered sprites: " + std::to_string(renderedSprites));
 }
 
 void ViewController::renderWorld(Dx::IRenderer2d& i_renderer) const
@@ -148,6 +163,11 @@ void ViewController::onViewportChanged(const Viewport& i_viewport)
     (int)(i_viewport.lookAt.y * scaleFactor) };
 
   d_scale = i_viewport.scale;
+
+  updateProjector();
+
+  if (d_terrainView)
+    updateTerrainViewArea();
 }
 
 void ViewController::onObjectTextureChanged(const Object& i_object)
@@ -179,6 +199,7 @@ void ViewController::onObjectSizeChanged(const Object& i_object)
 void ViewController::onTerrainAdded(const Terrain& i_terrain)
 {
   d_terrainView.emplace(i_terrain);
+  updateTerrainViewArea();
 }
 
 void ViewController::onTerrainReset()
@@ -287,4 +308,22 @@ void ViewController::onCursorShown(const Cursor& i_cursor)
 void ViewController::onCursorHidden()
 {
   d_cursorView.reset();
+}
+
+
+void ViewController::updateProjector()
+{
+  d_projector.setTranslation(d_offset);
+  d_projector.setScaleOrigin(d_scaleOrigin);
+  d_projector.setScale(d_scale);
+}
+
+void ViewController::updateTerrainViewArea()
+{
+  CONTRACT_ASSERT(d_terrainView);
+
+  const auto topLeft = d_projector.screenToWorld(Sdk::Vector2I::zero());
+  const auto bottomRight = d_projector.screenToWorld(getClientSize());
+
+  d_terrainView->updateDrawArea({ (int)topLeft.x, (int)(bottomRight.x), (int)topLeft.y, (int)(bottomRight.y) });
 }
