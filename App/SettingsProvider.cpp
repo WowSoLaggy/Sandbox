@@ -30,6 +30,8 @@ namespace
     settings.maxZoom = 3.0;
     settings.minZoom = 0.75;
 
+    settings.clearColor = { 0, 0, 0, 0 };
+
     return settings;
   }
 

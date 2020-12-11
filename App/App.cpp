@@ -24,6 +24,7 @@ App::App()
 
   d_renderDevice = Dx::IRenderDevice::create(d_window->getHWnd(), resolution);
   CONTRACT_ENSURE(d_renderDevice);
+  d_renderDevice->setClearColor(internalSettings.clearColor);
 
   d_resourceController = Dx::IResourceController::create(*d_renderDevice, internalSettings.assetsFolder);
   CONTRACT_ENSURE(d_resourceController);

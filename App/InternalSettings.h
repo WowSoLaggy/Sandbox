@@ -17,4 +17,6 @@ struct InternalSettings
 
   double maxZoom = 0;
   double minZoom = 0;
+
+  std::array<float, 4> clearColor;
 };
