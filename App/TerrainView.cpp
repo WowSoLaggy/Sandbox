@@ -46,14 +46,14 @@ void TerrainView::render(Dx::IRenderer2d& i_renderer) const
 }
 
 
-void TerrainView::updateDrawArea(const Sdk::RectI& i_area)
+void TerrainView::updateDrawArea(const Sdk::RectD& i_area)
 {
   const int scaleFactor = (int)SettingsProvider::getDefaultInternalSettings().scaleFactor;
 
-  d_drawLeft = std::max<int>(0, (int)std::floor((double)i_area.left() / scaleFactor));
-  d_drawRight = std::min<int>(d_terrain.getXSize() - 1, (int)std::ceil((double)i_area.right() / scaleFactor));
-  d_drawTop = std::max<int>(0, (int)std::floor((double)i_area.top() / scaleFactor));
-  d_drawBottom = std::min<int>(d_terrain.getYSize() - 1, (int)std::ceil((double)i_area.bottom() / scaleFactor));
+  d_drawLeft = std::max<int>(0, (int)std::floor(i_area.left()));
+  d_drawRight = std::min<int>(d_terrain.getXSize() - 1, (int)std::ceil(i_area.right()));
+  d_drawTop = std::max<int>(0, (int)std::floor(i_area.top()));
+  d_drawBottom = std::min<int>(d_terrain.getYSize() - 1, (int)std::ceil(i_area.bottom()));
 }
 
 

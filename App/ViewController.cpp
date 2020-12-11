@@ -6,6 +6,8 @@
 #include "GuiEvents.h"
 #include "GuiViewFactory.h"
 #include "IGuiView.h"
+#include "Object.h"
+#include "ObjectEvents.h"
 #include "ObjectView.h"
 #include "SettingsProvider.h"
 #include "TerrainEvents.h"
@@ -31,10 +33,12 @@ namespace
 
 void ViewController::processEvent(const Sdk::IEvent& i_event)
 {
-  if (const auto* event = dynamic_cast<const ObjectEntersViewport*>(&i_event))
-    onObjectEntersViewport(event->getObject());
-  else if (const auto* event = dynamic_cast<const ObjectLeavesViewport*>(&i_event))
-    onObjectLeavesViewport(event->getObject());
+  if (const auto* event = dynamic_cast<const ObjectAddedEvent*>(&i_event))
+    onObjectAdded(event->getObject());
+  else if (const auto* event = dynamic_cast<const ObjectRemovingEvent*>(&i_event))
+    onObjectRemoving(event->getObject());
+  else if (const auto* event = dynamic_cast<const ObjectPositionChangedEvent*>(&i_event))
+    onObjectPositionChanged(event->getObject(), event->getPrevPosition());
   else if (const auto* event = dynamic_cast<const ViewportChangedEvent*>(&i_event))
     onViewportChanged(event->getViewport());
   else if (const auto* event = dynamic_cast<const ObjectTextureChangedEvent*>(&i_event))
@@ -48,7 +52,7 @@ void ViewController::processEvent(const Sdk::IEvent& i_event)
   else if (const auto* event = dynamic_cast<const WorldCreatedEvent*>(&i_event))
     onWorldCreated(event->getWorld());
   else if (const auto* event = dynamic_cast<const WorldDisposingEvent*>(&i_event))
-    onWorldDisposing();
+    onWorldDisposing(event->getWorld());
   else if (const auto* event = dynamic_cast<const GuiControlAddedEvent*>(&i_event))
     onGuiControlAdded(event->getGuiControl());
   else if (const auto* event = dynamic_cast<const GuiControlRemovingEvent*>(&i_event))
@@ -130,6 +134,24 @@ void ViewController::renderGui(Dx::IRenderer2d& i_renderer) const
   }
 }
 
+void ViewController::onObjectAdded(const Object& i_object)
+{
+  if (isObjectVisible(i_object))
+    onObjectEntersViewport(i_object);
+}
+
+void ViewController::onObjectRemoving(const Object& i_object)
+{
+  onObjectLeavesViewport(i_object);
+}
+
+void ViewController::onObjectPositionChanged(const Object& i_object, const Sdk::Vector2D& i_prevPosition)
+{
+  if (!isObjectVisible(i_object, i_prevPosition) && isObjectVisible(i_object))
+    onObjectEntersViewport(i_object);
+  else if (isObjectVisible(i_object, i_prevPosition) && !isObjectVisible(i_object))
+    onObjectLeavesViewport(i_object);
+}
 
 void ViewController::onObjectEntersViewport(const Object& i_object)
 {
@@ -165,13 +187,19 @@ void ViewController::onViewportChanged(const Viewport& i_viewport)
   d_scale = i_viewport.scale;
 
   updateProjector();
+  updateViewArea();
 
   if (d_terrainView)
     updateTerrainViewArea();
+
+  updateVisibleObjects();
 }
 
 void ViewController::onObjectTextureChanged(const Object& i_object)
 {
+  if (!isObjectVisible(i_object))
+    return;
+
   const auto it = std::find_if(d_objectViews.cbegin(), d_objectViews.cend(),
                                [&](const auto& i_objectViewPtr) {
                                  return &i_objectViewPtr->getObject() == &i_object;
@@ -185,6 +213,9 @@ void ViewController::onObjectTextureChanged(const Object& i_object)
 
 void ViewController::onObjectSizeChanged(const Object& i_object)
 {
+  if (!isObjectVisible(i_object))
+    return;
+
   const auto it = std::find_if(d_objectViews.cbegin(), d_objectViews.cend(),
                                [&](const auto& i_objectViewPtr) {
                                  return &i_objectViewPtr->getObject() == &i_object;
@@ -209,14 +240,24 @@ void ViewController::onTerrainReset()
 
 void ViewController::onWorldCreated(const World& i_world)
 {
+  d_world = &i_world;
+
   if (const auto& terrain = i_world.getTerrain())
     onTerrainAdded(*terrain);
+
+  for (const auto& obj : i_world.getObjects())
+    onObjectAdded(*obj);
 }
 
-void ViewController::onWorldDisposing()
+void ViewController::onWorldDisposing(const World& i_world)
 {
   if (d_terrainView)
     onTerrainReset();
+
+  for (const auto& obj : i_world.getObjects())
+    onObjectRemoving(*obj);
+
+  d_world = nullptr;
 }
 
 void ViewController::onGuiControlAdded(const IGuiControl& i_gui)
@@ -318,12 +359,66 @@ void ViewController::updateProjector()
   d_projector.setScale(d_scale);
 }
 
-void ViewController::updateTerrainViewArea()
+void ViewController::updateViewArea()
 {
-  CONTRACT_ASSERT(d_terrainView);
-
   const auto topLeft = d_projector.screenToWorld(Sdk::Vector2I::zero());
   const auto bottomRight = d_projector.screenToWorld(getClientSize());
 
-  d_terrainView->updateDrawArea({ (int)topLeft.x, (int)(bottomRight.x), (int)topLeft.y, (int)(bottomRight.y) });
+  const double scaleFactor = SettingsProvider::getDefaultInternalSettings().scaleFactor;
+
+  d_viewArea = Sdk::Rect(topLeft / scaleFactor, bottomRight / scaleFactor);
+}
+
+void ViewController::updateTerrainViewArea()
+{
+  CONTRACT_ASSERT(d_terrainView);
+  d_terrainView->updateDrawArea({ d_viewArea.left(), d_viewArea.right(), d_viewArea.top(), d_viewArea.bottom() });
+}
+
+
+bool ViewController::isObjectVisible(const Object& i_object)
+{
+  return isObjectVisible(i_object, i_object.getPosition());
+}
+
+bool ViewController::isObjectVisible(const Object& i_object, const Sdk::Vector2D& i_position)
+{
+  const double halfSize = i_object.getSize() / 2;
+  const auto rect = Sdk::RectD(
+    i_position.x - halfSize, i_position.x + halfSize,
+    i_position.y - halfSize, i_position.y + halfSize);
+
+  return d_viewArea.intersectRect(rect);
+}
+
+
+bool ViewController::hasViewForObject(const Object& i_object)
+{
+  const auto it = std::find_if(d_objectViews.cbegin(), d_objectViews.cend(),
+                               [&](const auto& i_viewPtr)
+                               {
+                                 return &i_viewPtr->getObject() == &i_object;
+                               });
+  return it != d_objectViews.cend();
+}
+
+void ViewController::updateVisibleObjects()
+{
+  if (!d_world)
+    return;
+
+  for (const auto objectPtr : d_world->getObjects())
+  {
+    const auto& object = *objectPtr;
+
+    if (hasViewForObject(object))
+    {
+      if (!isObjectVisible(object))
+        onObjectRemoving(object);
+    }
+    else
+    {
+      onObjectAdded(object);
+    }
+  }
 }

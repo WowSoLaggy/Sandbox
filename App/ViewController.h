@@ -5,9 +5,12 @@
 #include "TerrainView.h"
 #include "Viewport.h"
 
+#include "Object.h"
+
 #include <LaggyDx/LaggyDxFwd.h>
 #include <LaggyDx/Projector.h>
 #include <LaggySdk/EventHandler.h>
+#include <LaggySdk/Rect.h>
 
 
 class ViewController : public Sdk::EventHandler
@@ -29,18 +32,24 @@ private:
   double d_scale = 1;
   Dx::Projector d_projector;
 
+  Sdk::RectD d_viewArea;
+  const World* d_world = nullptr;
+
   void renderWorld(Dx::IRenderer2d& i_renderer) const;
   void renderGui(Dx::IRenderer2d& i_renderer) const;
 
+  void onObjectAdded(const Object& i_object);
+  void onObjectRemoving(const Object& i_object);
+  void onObjectPositionChanged(const Object& i_object, const Sdk::Vector2D& i_prevPosition);
   void onObjectEntersViewport(const Object& i_object);
   void onObjectLeavesViewport(const Object& i_object);
-  void onViewportChanged(const Viewport& i_viewport);
   void onObjectTextureChanged(const Object& i_object);
   void onObjectSizeChanged(const Object& i_object);
+  void onViewportChanged(const Viewport& i_viewport);
   void onTerrainAdded(const Terrain& i_terrain);
   void onTerrainReset();
   void onWorldCreated(const World& i_world);
-  void onWorldDisposing();
+  void onWorldDisposing(const World& i_world);
   void onGuiControlAdded(const IGuiControl& i_gui);
   void onGuiControlRemoving(const IGuiControl& i_gui);
   void onGuiControlTextureChanged(const IGuiControl& i_gui);
@@ -53,5 +62,12 @@ private:
   void onCursorHidden();
 
   void updateProjector();
+  void updateViewArea();
   void updateTerrainViewArea();
+
+  bool isObjectVisible(const Object& i_object);
+  bool isObjectVisible(const Object& i_object, const Sdk::Vector2D& i_position);
+
+  bool hasViewForObject(const Object& i_object);
+  void updateVisibleObjects();
 };

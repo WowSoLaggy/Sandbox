@@ -17,7 +17,7 @@ public:
   void render(Dx::IRenderer2d& i_renderer) const;
 
   /// \param i_area - shall be defined in world coords
-  void updateDrawArea(const Sdk::RectI& i_area);
+  void updateDrawArea(const Sdk::RectD& i_area);
 
 private:
   const Terrain& d_terrain;
